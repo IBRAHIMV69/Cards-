@@ -6,9 +6,9 @@
     <title>Sweet Earn</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #00c6ff, #0072ff);
-            color: #fff;
+            font-family: 'Helvetica Neue', sans-serif;
+            background: radial-gradient(circle, #023016, #09D260, #023016);
+            color: #f1f1f1;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,43 +16,42 @@
         .balance {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 8px;
-            margin: 16px;
-        }
-        .balance p {
-            margin: 0;
-            font-size: 18px;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            font-weight: bold;
         }
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 16px;
-            padding: 16px;
+            grid-template-columns: repeat(auto-fill, minmax( 280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            justify-items: center;
         }
         .video-task {
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            background: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: #2C9BA2, #000;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 320px;
         }
         .video-task:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        }
-        .video-thumbnail {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
         }
         iframe {
             border: none;
+            border-radius: 0 0 12px 12px;
             width: 100%;
             height: 180px;
         }
@@ -60,7 +59,7 @@
             font-size: 20px;
             font-weight: bold;
             margin: 16px;
-            text-align: center;
+            color: #fff;
         }
         .lock-overlay {
             position: absolute;
@@ -68,7 +67,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             color: #fff;
             display: flex;
             flex-direction: column;
@@ -76,7 +75,7 @@
             justify-content: center;
             font-size: 24px;
             font-weight: bold;
-            border-radius: 8px;
+            border-radius: 12px;
             visibility: hidden;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -89,6 +88,28 @@
             margin-top: 16px;
             font-size: 18px;
         }
+        .promo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #023016;
+}
+
+.promo-section input {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    width: 110px;
+    text-align: center;
+}
+
 .promo-section button {
     padding: 10px 20px;
     font-size: 16px;
@@ -128,6 +149,8 @@
                 <div id="countdown1" class="countdown">00:00:00</div>
             </div>
         </div>
+        <!-- Link styled as a button -->
+            <a href="https://example.com/airdrop" class="button">Subscribe</a>
         <!-- Video 2 -->
         <div class="video-task" id="videoTask2">
             <div id="player2"></div>
@@ -650,7 +673,7 @@ function startCountdown(endTime, videoId) {
 }
 
 function onYouTubeIframeAPIReady() {
-    const videoIds = ['VPz7K1zWWMs', 'ot4WNTK1ngY', 'soehOiZMzjs']; // Replace with actual video IDs
+    const videoIds = ['VPz7K1zWWMs', 'ot4WNTK1ngY', 'ptYRwD86fjQ']; // Replace with actual video IDs
     videoIds.forEach((videoId, index) => {
         new YT.Player(`player${index + 1}`, {
             height: '180',
