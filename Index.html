@@ -3,82 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ad Integration Example</title>
+    <title>Daily Tasks Game</title>
     <style>
-        .ad-section {
-            background: linear-gradient(135deg, #09D260, #0033cc);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-            margin: 40px auto;
-            text-align: center;
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        .ad-section h2 {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        .ad-section p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            color: #dcdcdc;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        .ad-button {
+        .task-container {
             background: #fff;
-            color: #0033cc;
-            border: none;
-            border-radius: 10px;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            color: #333;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
             font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            transition: background 0.3s ease, transform 0.2s ease;
-            cursor: pointer;
         }
-        .ad-button:hover {
-            background: #0056b3;
+        .balance {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4caf50;
+        }
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f9f9f9;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s;
+        }
+        .task-item:hover {
+            background: #e0f7fa;
+        }
+        .task-item span {
+            font-size: 1.1em;
+        }
+        .reward {
+            color: #ff5722;
+            font-weight: bold;
+        }
+        .task-item button {
+            background: #ff5722;
             color: #fff;
-            transform: translateY(-4px);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
         }
-        .error-message {
-            color: #ff4d4f;
-            font-size: 16px;
-            margin-top: 20px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        .task-item button:hover {
+            background: #e64a19;
+        }
+        .task-item button:disabled {
+            background: #ddd;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
-    <!-- Ad Section -->
-    <div class="ad-section">
-        <h2>Watch Ad</h2>
-        <p>Click the button below to view an ad.</p>
-        <button id="adButton" class="ad-button">Watch Ad</button>
-        <p id="errorMessage" class="error-message"></p>
+    <div class="task-container">
+        <h2>Daily Tasks</h2>
+        <div class="balance">Balance: <span id="balance">0</span> Coins</div>
 
-        <!-- Google AdSense Ad Code -->
-        <div class="ads-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({
-                    google_ad_client: "ca-pub-3662776969674994", // Replace with your AdSense client ID
-                    enable_page_level_ads: true
-                });
-            </script>
+        <div class="task-item">
+            <span>Day 1 Reward: <span class="reward">50 Coins</span></span>
+            <button onclick="handleClaim(1)">Visit & Claim</button>
+        </div>
+
+        <div class="task-item">
+            <span>Day 2 Reward: <span class="reward">100 Coins</span></span>
+            <button onclick="handleClaim(2)">Visit & Claim</button>
+        </div>
+
+        <div class="task-item">
+            <span>Day 3 Reward: <span class="reward">150 Coins</span></span>
+            <button onclick="handleClaim(3)">Visit & Claim</button>
+        </div>
+
+        <div class="task-item">
+            <span>Day 4 Reward: <span class="reward">200 Coins</span></span>
+            <button onclick="handleClaim(4)">Visit & Claim</button>
+        </div>
+
+        <div class="task-item">
+            <span>Day 5 Reward: <span class="reward">250 Coins</span></span>
+            <button onclick="handleClaim(5)">Visit & Claim</button>
         </div>
     </div>
 
     <script>
-        document.getElementById('adButton').addEventListener('click', function() {
-            // Simulate ad interaction (this will not trigger a real ad)
-            document.getElementById('errorMessage').textContent = 'Ad simulation complete!';
+        const taskLinks = {
+            1: "https://example.com/day1", // Replace with your link
+            2: "https://example.com/day2", // Replace with your link
+            3: "https://example.com/day3", // Replace with your link
+            4: "https://example.com/day4", // Replace with your link
+            5: "https://example.com/day5"  // Replace with your link
+        };
+
+        let balance = parseInt(localStorage.getItem('balance')) || 0;
+        let claimedDays = JSON.parse(localStorage.getItem('claimedDays')) || [];
+        let visitedDays = JSON.parse(localStorage.getItem('visitedDays')) || {};
+
+        // Update balance display
+        document.getElementById('balance').innerText = balance;
+
+        // Disable buttons for already claimed days and visited status
+        document.querySelectorAll('.task-item button').forEach((button, index) => {
+            const day = index + 1;
+            if (claimedDays.includes(day)) {
+                button.disabled = true;
+                button.innerText = "Claimed";
+            } else if (!visitedDays[day]) {
+                button.disabled = true;
+                button.innerText = "Visit Required";
+            }
         });
+
+        function handleClaim(day) {
+            if (!visitedDays[day]) {
+                if (confirm(`You need to visit this link before claiming: ${taskLinks[day]}`)) {
+                    window.open(taskLinks[day], '_blank');
+                    visitedDays[day] = true;
+                    localStorage.setItem('visitedDays', JSON.stringify(visitedDays));
+                }
+                return;
+            }
+            claimReward(day);
+        }
+
+        function claimReward(day) {
+            if (!visitedDays[day]) {
+                alert('You must visit the page before claiming rewards!');
+                return;
+            }
+
+            if (!claimedDays.includes(day)) {
+                claimedDays.push(day);
+                localStorage.setItem('claimedDays', JSON.stringify(claimedDays));
+
+                const rewards = [50, 100, 150, 200, 250];
+                balance += rewards[day - 1];
+                localStorage.setItem('balance', balance);
+                document.getElementById('balance').innerText = balance;
+
+                const buttons = document.querySelectorAll('.task-item button');
+                buttons[day - 1].disabled = true;
+                buttons[day - 1].innerText = "Claimed";
+
+                alert(`Day ${day} reward claimed!`);
+            }
+        }
     </script>
 </body>
 </html>
