@@ -735,6 +735,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.getElementById('promoCodeInput').value = '';
 });
+document.addEventListener('DOMContentLoaded', () => {
+    balanceElement.textContent = loadBalance().toFixed(2);
+    for (let i = 1; i <= 3; i++) {
+        loadLockStatus(i);
+    }
+    // Add 1.00 to balance when visiting the page
+    updateBalance(1.00);
+});
 
     </script>
 </body>
