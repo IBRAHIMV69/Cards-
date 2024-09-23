@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Video Tasks - Amazing Style</title>
+    <title>YouTube Video Task</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1f1c2c, #928dab);
-            color: #ffffff;
+            font-family: 'Helvetica Neue', sans-serif;
+            background: radial-gradient(circle, #4a90e2, #0033cc);
+            color: #f1f1f1;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -18,75 +18,51 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
             margin: 20px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-            font-size: 28px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .video-grid {
-            display: flex;
-            justify-content: center;
-            padding: 30px;
-        }
-        .video-task {
-            background: linear-gradient(145deg, #292E49, #536976);
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            max-width: 400px;
-            width: 100%;
-        }
-        .video-task:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
-        }
-        iframe {
-            border: none;
-            width: 100%;
-            height: 220px;
-        }
-        .video-title {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             font-size: 24px;
             font-weight: bold;
-            margin: 16px;
-            color: #f1f1f1;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
         }
-        .lock-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            color: #ffffff;
+        .video-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            padding: 20px;
+        }
+        .video-task {
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 640px;
+            margin: 20px 0;
+        }
+        iframe {
+            border: none;
+            border-radius: 0 0 12px 12px;
+            width: 100%;
+            height: 360px;
+        }
+        .video-title {
+            font-size: 22px;
             font-weight: bold;
-            border-radius: 18px;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            margin: 16px;
+            color: #333;
         }
-        .lock-overlay.visible {
-            visibility: visible;
-            opacity: 1;
-        }
-        .countdown {
-            margin-top: 16px;
-            font-size: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        /* New style for watched videos */
+        .watched {
+            background-color: #4caf50; /* Green background for watched video */
+            color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
         }
     </style>
 </head>
@@ -95,24 +71,21 @@
         <p>Balance: $<span id="balance">1.00</span></p>
     </div>
 
-    <div class="video-grid">
+    <div class="video-container">
         <div class="video-task" id="videoTask">
             <div id="player"></div>
             <p class="video-title" id="videoTitle">Video 1</p>
-            <div class="lock-overlay" id="lockOverlay">
-                <div>Locked</div>
-                <div id="countdown" class="countdown">00:00:00</div>
-            </div>
         </div>
     </div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        const balanceElement = document.getElementById('balance');
-        const videoIds = ['soehOiZMzjs', 'anotherVideoId1', 'anotherVideoId2', 'anotherVideoId3']; // Add more video IDs as needed
-        const videoTitle = document.getElementById('videoTitle');
+        let videoIds = ['soehOiZMzjs', 'anotherVideoId1', 'anotherVideoId2']; // Replace with your actual video IDs
         let currentVideoIndex = 0;
-
+        const balanceElement = document.getElementById('balance');
+        const videoTitle = document.getElementById('videoTitle');
+        const videoTask = document.getElementById('videoTask');
+        
         function loadBalance() {
             const savedBalance = localStorage.getItem('balance');
             return savedBalance ? parseFloat(savedBalance) : 1.00;
@@ -129,79 +102,47 @@
             balanceElement.textContent = currentBalance.toFixed(2);
         }
 
-        function loadLockStatus() {
-            const unlockTime = localStorage.getItem(`unlockTime_${currentVideoIndex + 1}`);
-            const now = new Date().getTime();
-
-            if (unlockTime && now < parseInt(unlockTime)) {
-                document.getElementById('lockOverlay').classList.add('visible');
-                startCountdown(parseInt(unlockTime));
-            }
+        function onYouTubeIframeAPIReady() {
+            loadVideo(videoIds[currentVideoIndex]);
         }
 
-        function setLock() {
-            const now = new Date().getTime();
-            const unlockDate = new Date(now + 2 * 60 * 60 * 1000); // 2 hours
-            localStorage.setItem(`lastWatched_${currentVideoIndex + 1}`, now);
-            localStorage.setItem(`unlockTime_${currentVideoIndex + 1}`, unlockDate.getTime());
-            document.getElementById('lockOverlay').classList.add('visible');
-            startCountdown(unlockDate.getTime());
-        }
-
-        function startCountdown(endTime) {
-            function updateTimer() {
-                const now = new Date().getTime();
-                const timeRemaining = endTime - now;
-
-                if (timeRemaining <= 0) {
-                    document.getElementById('lockOverlay').classList.remove('visible');
-                    clearInterval(timerInterval);
-                } else {
-                    const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-                    document.getElementById('countdown').textContent = 
-                        String(hours).padStart(2, '0') + ':' + 
-                        String(minutes).padStart(2, '0') + ':' + 
-                        String(seconds).padStart(2, '0');
+        function loadVideo(videoId) {
+            new YT.Player('player', {
+                height: '360',
+                width: '100%',
+                videoId: videoId,
+                events: {
+                    'onStateChange': onPlayerStateChange
                 }
-            }
-            updateTimer(); // initial call
-            const timerInterval = setInterval(updateTimer, 1000);
-        }
-
-        function loadNextVideo() {
-            if (currentVideoIndex < videoIds.length) {
-                videoTitle.textContent = `Video ${currentVideoIndex + 1}`;
-                new YT.Player('player', {
-                    height: '220',
-                    width: '100%',
-                    videoId: videoIds[currentVideoIndex],
-                    events: {
-                        'onStateChange': (event) => onPlayerStateChange(event)
-                    }
-                });
-            }
+            });
         }
 
         function onPlayerStateChange(event) {
             if (event.data == YT.PlayerState.ENDED) {
-                // Video has ended
-                updateBalance(0.10);
-                setLock();
-
-                // Load the next video
+                updateBalance(0.10); // Add $0.10 when the video ends
+                videoTask.classList.add('watched'); // Add the "watched" style
                 currentVideoIndex++;
+
                 if (currentVideoIndex < videoIds.length) {
                     loadNextVideo();
+                } else {
+                    alert('All videos have been watched!');
                 }
             }
         }
 
+        function loadNextVideo() {
+            const nextVideoId = videoIds[currentVideoIndex];
+            const playerDiv = document.getElementById('player');
+            playerDiv.innerHTML = ''; // Clear the existing iframe
+
+            videoTitle.textContent = `Video ${currentVideoIndex + 1}`; // Update the video title
+            videoTask.classList.remove('watched'); // Reset the style for the new video
+            loadVideo(nextVideoId); // Load the next video
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             balanceElement.textContent = loadBalance().toFixed(2);
-            loadLockStatus();
-            loadNextVideo(); // Load the first video
         });
     </script>
 </body>
