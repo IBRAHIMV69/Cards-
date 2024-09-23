@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sweet Earn</title>
+    <title>YouTube Video Tasks</title>
     <style>
         body {
             font-family: 'Helvetica Neue', sans-serif;
@@ -88,53 +88,33 @@
             margin-top: 16px;
             font-size: 18px;
         }
-        .button-link {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    background-color: #4a90e2;
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.button-link:hover {
-    background-color: #0033cc;
-}
     </style>
 </head>
 <body>
     <div class="balance">
-        <p>💎<span id="balance">1.00</span></p>
+        <p>Balance: $<span id="balance">1.00</span></p>
     </div>
 
     <div class="video-grid">
-        <!-- Video 1 -->
         <div class="video-task" id="videoTask1">
             <div id="player1"></div>
-            <p class="video-title">💎 1.00</a><a href="https://example.com/task" class="button-link">Ads 💎+0.50</a>
+            <p class="video-title">Video 1</p>
             <div class="lock-overlay" id="lockOverlay1">
                 <div>Locked</div>
                 <div id="countdown1" class="countdown">00:00:00</div>
             </div>
         </div>
-        <!-- Video 2 -->
         <div class="video-task" id="videoTask2">
             <div id="player2"></div>
-            <p class="video-title">💎 1.00</a><a href="https://example.com/task" class="button-link">Ads +💎0.50</a>
+            <p class="video-title">Video 2</p>
             <div class="lock-overlay" id="lockOverlay2">
                 <div>Locked</div>
                 <div id="countdown2" class="countdown">00:00:00</div>
             </div>
         </div>
-        <!-- Video 3 -->
         <div class="video-task" id="videoTask3">
             <div id="player3"></div>
-            <p class="video-title">💎 1.00</a><a href="https://example.com/task" class="button-link">Ads +💎0.50</a>
+            <p class="video-title">Video 3</p>
             <div class="lock-overlay" id="lockOverlay3">
                 <div>Locked</div>
                 <div id="countdown3" class="countdown">00:00:00</div>
@@ -145,6 +125,8 @@
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         const balanceElement = document.getElementById('balance');
+        const videoIds = ['soehOiZMzjs', 'anotherVideoId1', 'anotherVideoId2', 'anotherVideoId3']; // Add more video IDs as needed
+        let currentVideoIndex = 0;
 
         function loadBalance() {
             const savedBalance = localStorage.getItem('balance');
@@ -203,58 +185,40 @@
             const timerInterval = setInterval(updateTimer, 1000);
         }
 
-        function onYouTubeIframeAPIReady() {
-            const videoIds = ['soehOiZMzjs', 'anotherVideoId1', 'anotherVideoId2', 'anotherVideoId3']; // Add more video IDs as needed
-let currentVideoIndex = 0;
-
-function onPlayerStateChange(event, videoIndex) {
-    if (event.data == YT.PlayerState.ENDED) {
-        // Video has ended
-        updateBalance(0.10);
-        setLock(videoIndex);
-
-        // Load the next video
-        currentVideoIndex++;
-        if (currentVideoIndex < videoIds.length) {
-            loadNextVideo(currentVideoIndex);
+        function loadNextVideo(index) {
+            if (index < videoIds.length) {
+                new YT.Player(`player${index + 1}`, {
+                    height: '180',
+                    width: '100%',
+                    videoId: videoIds[index],
+                    events: {
+                        'onStateChange': (event) => onPlayerStateChange(event, index + 1)
+                    }
+                });
+            }
         }
-    }
-}
 
-function loadNextVideo(index) {
-    const player = new YT.Player(`player${index + 1}`, {
-        height: '180',
-        width: '100%',
-        videoId: videoIds[index],
-        events: {
-            'onStateChange': (event) => onPlayerStateChange(event, index + 1)
+        function onPlayerStateChange(event, videoIndex) {
+            if (event.data == YT.PlayerState.ENDED) {
+                // Video has ended
+                updateBalance(0.10);
+                setLock(videoIndex);
+
+                // Load the next video
+                currentVideoIndex++;
+                if (currentVideoIndex < videoIds.length) {
+                    loadNextVideo(currentVideoIndex);
+                }
+            }
         }
-    });
-}
-
-// Initialize players
-function onYouTubeIframeAPIReady() {
-    loadNextVideo(currentVideoIndex); // Load the first video
-}
-
-// Other existing code...
-        
-        
 
         document.addEventListener('DOMContentLoaded', () => {
             balanceElement.textContent = loadBalance().toFixed(2);
-            for (let i = 1; i <= 3; i++) {
+            for (let i = 1; i <= videoIds.length; i++) {
                 loadLockStatus(i);
             }
+            loadNextVideo(currentVideoIndex); // Load the first video
         });
-        document.addEventListener('DOMContentLoaded', () => {
-    balanceElement.textContent = loadBalance().toFixed(2);
-    for (let i = 1; i <= 3; i++) {
-        loadLockStatus(i);
-    }
-    // Add 1.00 to balance when visiting the page
-    updateBalance(1.00);
-});
     </script>
 </body>
 </html>
