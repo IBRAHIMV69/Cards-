@@ -704,7 +704,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerStateChange(event, videoIndex) {
     if (event.data == YT.PlayerState.ENDED) {
         // Video has ended
-        updateBalance(200000);
+        updateBalance(0.05);
         setLock(videoIndex);
     }
 }
@@ -714,6 +714,15 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= 3; i++) {
         loadLockStatus(i);
     }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    balanceElement.textContent = loadBalance().toFixed(2);
+    for (let i = 1; i <= 3; i++) {
+        loadLockStatus(i);
+    }
+    // Add 1.00 to balance when visiting the page
+    updateBalance(1.00);
 });
 
   document.getElementById('applyPromoBtn').addEventListener('click', () => {
@@ -726,7 +735,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lastUsedDate === today) {
             document.getElementById('promoMessage').textContent = 'Already used.';
         } else {
-            updateBalance(5000000);
+            updateBalance(1.00);
             localStorage.setItem(`promo_${promoCode}_date`, today);
             document.getElementById('promoMessage').textContent = 'successfull!';
         }
