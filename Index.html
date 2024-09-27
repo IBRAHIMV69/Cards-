@@ -815,6 +815,43 @@ document.addEventListener('DOMContentLoaded', () => {
 // Open the URL in a new tab
             window.open('https://x.com/SweetEearn?t=1MXDDiBSkjP2uMg3YAAe4A&s=09', '_blank');
         });
+
+ document.addEventListener("DOMContentLoaded", function() {
+            // Check if the user has already visited the page and returned
+            if (localStorage.getItem("visitedSendPage")) {
+                startCountdown();
+            }
+
+            // Add an event listener to the Send button to track the visit
+            document.getElementById("adsaButton").addEventListener("click", function() {
+                // Save the visit to localStorage before the user leaves
+                localStorage.setItem("visitedSendPage", true);
+            });
+
+            function startCountdown() {
+                var button = document.getElementById("adsaButton");
+                var countdown = 15;
+                
+                // Disable the button
+                button.classList.add("disabled");
+                button.innerHTML = "Check " + countdown + "";
+
+                // Start the countdown
+                var countdownInterval = setInterval(function() {
+                    countdown--;
+                    button.innerHTML = "Check " + countdown + "";
+                    
+                    // If countdown reaches 0, re-enable the button
+                    if (countdown === 0) {
+                        clearInterval(countdownInterval);
+                        button.classList.remove("disabled");
+                        button.innerHTML = "Send";
+                        // Remove the flag from localStorage
+                        localStorage.removeItem("visitedSendPage");
+                    }
+                }, 1000); // Update every second
+            }
+        });
         
 
     </script>
