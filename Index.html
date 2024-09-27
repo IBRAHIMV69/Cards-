@@ -732,10 +732,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-  document.getElementById('adsaButton').addEventListener('click', function() {
-        updateBalance(5); // Add 5 coins to the balance when visiting the adsa button page after 15 seconds 
-    });
+  let pageVisited = false;
+let timer;
 
+window.onload = function() {
+    pageVisited = true;
+    console.log("Page visited. Starting 15 second timer.");
+
+    // Start the 15-second timer
+    timer = setTimeout(function() {
+        // Enable the button to add coins after 15 seconds
+        document.getElementById('adsaButton').disabled = false;
+    }, 15000); // 15000 milliseconds = 15 seconds
+};
+
+document.getElementById('adsaButton').addEventListener('click', function() {
+    // Check if the page has been visited and 15 seconds have passed
+    if (pageVisited) {
+        updateBalance(5); // Add 5 coins
+        console.log("5 coins added to balance after 15 seconds.");
+    } else {
+        console.log("User did not stay on the page for 15 seconds.");
+    }
+});
+
+function updateBalance(coins) {
+    // Your logic to update the balance
+    console.log(`Balance updated by ${coins} coins`);
+}
+        
   document.getElementById('adsbButton').addEventListener('click', function() {
         updateBalance(5); // Add 5 coins to the balance when visiting the any button page
     });
