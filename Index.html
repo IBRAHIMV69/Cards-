@@ -673,6 +673,18 @@
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
+        function toggleVideos() {
+            const videoGrid = document.getElementById('videoGrid');
+            const button = document.querySelector('.toggle-button');
+            if (videoGrid.style.display === 'none' || videoGrid.style.display === '') {
+                videoGrid.style.display = 'grid';
+                button.textContent = 'Hide Videos';
+            } else {
+                videoGrid.style.display = 'none';
+                button.textContent = 'Show Videos';
+            }
+        }
+        
         const balanceElement = document.getElementById('balance');
 
 function loadBalance() {
