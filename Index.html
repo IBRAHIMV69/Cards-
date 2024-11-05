@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Tasks - Amazing Style</title>
     <style>
-        /* Styles for Amazing Style Design */
+        /* Amazing Style Design */
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(to right, #141e30, #243b55);
@@ -122,14 +122,13 @@
 <body>
     <button class="nav-button" onclick="toggleNav()">Upload Section</button>
     
-   <a>AREWA TUBE</a>
-
     <nav id="navContent">
         <div class="video-upload">
             <input type="text" id="codeInput" placeholder="Enter permission code">
             <input type="file" id="videoFileInput" accept="video/*" multiple disabled>
             <button onclick="checkCode()">Submit</button>
             <button onclick="loadVideos()" disabled id="loadButton">Upload</button>
+            <p id="uploadStatus"></p>
         </div>
     </nav>
 
@@ -142,20 +141,6 @@
             navContent.style.display = navContent.style.display === "none" ? "block" : "none";
         }
 
-        let db;
-
-        const request = indexedDB.open('VideoDB', 1);
-
-        request.onupgradeneeded = function(event) {
-            db = event.target.result;
-            db.createObjectStore('videoFiles', { keyPath: 'id' });
-        };
-
-        request.onsuccess = function(event) {
-            db = event.target.result;
-            loadStoredVideos();
-        };
-
         function checkCode() {
             const code = document.getElementById('codeInput').value;
             const videoInput = document.getElementById('videoFileInput');
@@ -166,14 +151,14 @@
             if (storedCode === code) {
                 videoInput.disabled = false;
                 loadButton.disabled = false;
-                alert("Code accepted! You can now upload video files.");
+                document.getElementById('uploadStatus').innerText = "Code accepted! You can now upload video files.";
             } else if (code === '112233') {
                 localStorage.setItem('videoUploadCode', code);
                 videoInput.disabled = false;
                 loadButton.disabled = false;
-                alert("Code accepted! You can now upload video files.");
+                document.getElementById('uploadStatus').innerText = "Code accepted! You can now upload video files.";
             } else {
-                alert("Invalid code. Please enter the correct code.");
+                document.getElementById('uploadStatus').innerText = "Invalid code. Please enter the correct code.";
                 videoInput.disabled = true;
                 loadButton.disabled = true;
             }
@@ -184,10 +169,10 @@
             if (videoInput.files.length > 0) {
                 Array.from(videoInput.files).forEach(file => {
                     createVideoTask(file);
-                    saveVideoToDB(file);
+                    saveVideoToLocalStorage(file);
                 });
             } else {
-                alert("Please select video files to play.");
+                document.getElementById('uploadStatus').innerText = "Please select video files to upload.";
             }
         }
 
@@ -216,39 +201,34 @@
             videoGrid.insertBefore(videoTask, videoGrid.firstChild);
         }
 
-        function saveVideoToDB(file) {
-            const transaction = db.transaction(['videoFiles'], 'readwrite');
-            const store = transaction.objectStore('videoFiles');
+        function saveVideoToLocalStorage(file) {
+            let videos = JSON.parse(localStorage.getItem('uploadedVideos')) || [];
 
-            const videoData = {
-                id: file.name,
-                file: file
+            // Save the video as a data URL
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const videoData = {
+                    id: file.name,
+                    file: event.target.result,
+                    name: file.name
+                };
+
+                videos.push(videoData);
+                localStorage.setItem('uploadedVideos', JSON.stringify(videos));
             };
-
-            const request = store.put(videoData);
-
-            request.onsuccess = function() {
-                console.log("Video file saved to IndexedDB");
-            };
-
-            request.onerror = function() {
-                console.error("Error saving video file to IndexedDB");
-            };
+            reader.readAsDataURL(file);
         }
 
         function loadStoredVideos() {
-            const transaction = db.transaction(['videoFiles'], 'readonly');
-            const store = transaction.objectStore('videoFiles');
-            const request = store.getAll();
-
-            request.onsuccess = function(event) {
-                const videoFiles = event.target.result.reverse();
-                videoFiles.forEach(videoData => {
-                    const file = new File([videoData.file], videoData.id);
-                    createVideoTask(file);
-                });
-            };
+            const videos = JSON.parse(localStorage.getItem('uploadedVideos')) || [];
+            videos.forEach(videoData => {
+                const file = new File([new Blob([videoData.file], { type: 'video/mp4' })], videoData.name);
+                createVideoTask(file);
+            });
         }
+
+        // Load stored videos on page load
+        window.onload = loadStoredVideos;
     </script>
 </body>
 </html>
