@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Tasks - Amazing Style</title>
+    <title>Video Upload - Amazing Style</title>
     <style>
-        /* Amazing Style Design */
+        /* Styles for Amazing Style Design */
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(to right, #141e30, #243b55);
@@ -128,11 +128,10 @@
             <input type="file" id="videoFileInput" accept="video/*" multiple disabled>
             <button onclick="checkCode()">Submit</button>
             <button onclick="loadVideos()" disabled id="loadButton">Upload</button>
-            <p id="uploadStatus"></p>
+            <div id="uploadStatus"></div>
         </div>
     </nav>
 
-    <!-- Video Grid outside the nav section -->
     <div id="videoGrid" class="video-grid"></div>
 
     <script>
@@ -168,15 +167,16 @@
             const videoInput = document.getElementById('videoFileInput');
             if (videoInput.files.length > 0) {
                 Array.from(videoInput.files).forEach(file => {
-                    createVideoTask(file);
-                    saveVideoToLocalStorage(file);
+                    const fileURL = URL.createObjectURL(file);
+                    createVideoTask(file, fileURL);
+                    saveVideoToLocalStorage(file.name, fileURL);
                 });
             } else {
                 document.getElementById('uploadStatus').innerText = "Please select video files to upload.";
             }
         }
 
-        function createVideoTask(file) {
+        function createVideoTask(file, fileURL) {
             const videoGrid = document.getElementById('videoGrid');
 
             const videoTask = document.createElement('div');
@@ -187,7 +187,7 @@
 
             const videoPlayer = document.createElement('video');
             videoPlayer.controls = true;
-            videoPlayer.src = URL.createObjectURL(file);
+            videoPlayer.src = fileURL;
 
             videoContainer.appendChild(videoPlayer);
 
@@ -201,33 +201,20 @@
             videoGrid.insertBefore(videoTask, videoGrid.firstChild);
         }
 
-        function saveVideoToLocalStorage(file) {
-            let videos = JSON.parse(localStorage.getItem('uploadedVideos')) || [];
-
-            // Save the video as a data URL
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const videoData = {
-                    id: file.name,
-                    file: event.target.result,
-                    name: file.name
-                };
-
-                videos.push(videoData);
-                localStorage.setItem('uploadedVideos', JSON.stringify(videos));
-            };
-            reader.readAsDataURL(file);
+        function saveVideoToLocalStorage(fileName, fileURL) {
+            let uploadedVideos = JSON.parse(localStorage.getItem('uploadedVideos')) || [];
+            uploadedVideos.push({ name: fileName, url: fileURL });
+            localStorage.setItem('uploadedVideos', JSON.stringify(uploadedVideos));
         }
 
         function loadStoredVideos() {
-            const videos = JSON.parse(localStorage.getItem('uploadedVideos')) || [];
-            videos.forEach(videoData => {
-                const file = new File([new Blob([videoData.file], { type: 'video/mp4' })], videoData.name);
-                createVideoTask(file);
+            const uploadedVideos = JSON.parse(localStorage.getItem('uploadedVideos')) || [];
+            uploadedVideos.forEach(videoData => {
+                createVideoTask({ name: videoData.name }, videoData.url);
             });
         }
 
-        // Load stored videos on page load
+        // Load previously uploaded videos when the page loads
         window.onload = loadStoredVideos;
     </script>
 </body>
