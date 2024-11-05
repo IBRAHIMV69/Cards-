@@ -6,146 +6,191 @@
     <title>App Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Amazing Style */
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #34495e, #34495e);
+            color: #2c3e50;
             margin: 0;
             padding: 0;
         }
+
         header {
-            background-color: #ff6600;
-            color: #fff;
-            padding: 10px 0;
+            background-color: #fff;
+            color: #34495e;
+            padding: 15px 0;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
         header h1 {
             margin: 0;
-            font-size: 2em;
+            font-size: 2.2em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
         header h1 i {
             margin-right: 10px;
+            color: #34495e;
         }
+
         nav {
-            background-color: #333;
-            color: #fff;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 15px;
+            background-color: #34495e;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
+
         nav a {
             color: #fff;
             text-decoration: none;
             font-size: 1em;
-            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background-color 0.3s;
         }
+
         nav a:hover {
-            text-decoration: underline;
+            background-color: #2c3e50;
         }
+
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
+
+        #search-bar {
+            width: 90%;
+            padding: 12px;
+            margin-bottom: 25px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
         .app-list {
             list-style-type: none;
             padding: 0;
         }
+
         .app-list-item {
             display: flex;
             align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-            transition: transform 0.2s ease-in-out;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            background: #ecf0f1;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .app-list-item:hover {
-            transform: scale(1.02);
+            transform: scale(1.03);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         }
+
         .app-list-item img {
-            width: 70px;
+            width: 75px;
             height: 70px;
             object-fit: cover;
-            border-radius: 50%;
-            margin-right: 20px;
+            border-radius: 25%;
+            margin-right: 15px;
+            border: 2px solid #34495e;
         }
-        .app-details {
-            flex: 1;
-        }
+
         .app-details h2 {
-            font-size: 1.2em;
-            margin: 0 0 5px 0;
-            color: #333;
+            font-size: 1.3em;
+            margin: 0;
+            color: #34495e;
+            font-weight: bold;
         }
+
         .app-details p {
-            margin: 0 0 10px 0;
-            color: #666;
+            margin: 5px 0 15px;
+            color: #34495e;
         }
+
         .app-download-link {
-            background-color: #ff6600;
+            background-color: #34495e;
             color: #fff;
-            padding: 8px 12px;
+            padding: 8px 15px;
             text-decoration: none;
-            border-radius: 4px;
-            display: inline-block;
+            border-radius: 25px;
+            transition: background-color 0.3s;
             font-size: 0.9em;
         }
+
         .app-download-link:hover {
-            background-color: #e65c00;
+            background-color: #34495e;
         }
+
         footer {
-            background-color: #333;
-            color: #fff;
+            background-color: #34495e;
+            color: #ecf0f1;
             text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            padding: 15px;
+            font-size: 0.9em;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
         }
-        .content-form {
-            margin-top: 20px;
+
+        .content-form h2 {
+            color: #34495e;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
+
         .content-form label {
-            display: block;
-            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
         }
-        .content-form input, .content-form textarea {
+
+        .content-form input,
+        .content-form textarea {
             width: 90%;
             padding: 10px;
-            margin-bottom: 10px;
+            margin: 8px 0 15px;
+            border-radius: 8px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .content-form button {
-            background-color: #ff6600;
+            background-color: #34495e;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
+            font-size: 1em;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 25px;
+            transition: background-color 0.3s;
         }
+
         .content-form button:hover {
-            background-color: #e65c00;
-        }
-        .content-cover {
-            margin-bottom: 10px;
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1><i class="fas fa-store"></i> App Store</h1>
+    <h1><i class="fas fa-store"></i>iUP STORE</h1>
 </header>
 
 <nav>
-    <a onclick="showApps()"><i class="fas fa-th"></i> Apps</a>
-    <a onclick="showContentForm()"><i class="fas fa-plus"></i> Publish App</a>
+    <a onclick="showApps()"><i class="fas fa-th"></i> For you</a>
+    <a onclick="showContentForm()"><i class="fas fa-plus"></i> Developer</a>
 </nav>
 
 <div class="container" id="apps-container">
@@ -164,10 +209,10 @@
         <label for="content-cover">App Logo</label>
         <input type="file" id="content-cover" name="content-cover" class="content-cover" accept="image/*" required>
 
-        <label for="content-body">App Description</label>
+        <label for="content-body">Short Description</label>
         <textarea id="content-body" name="content-body" rows="5" placeholder="Write your app description here..." required></textarea>
 
-        <button type="submit">Publish</button>
+        <button type="submit">Submit</button>
     </form>
 </div>
 
@@ -229,7 +274,7 @@
 
                 const appDownloadLink = document.createElement('a');
                 appDownloadLink.href = app.apk;
-                appDownloadLink.textContent = 'Download';
+                appDownloadLink.textContent = 'Install';
                 appDownloadLink.className = 'app-download-link';
                 appDownloadLink.download = app.apkName;
 
