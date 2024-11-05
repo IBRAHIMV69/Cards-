@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Upload - Amazing Style</title>
+    <title>Video Tasks - Amazing Style</title>
     <style>
         /* Styles for Amazing Style Design */
         body {
@@ -132,6 +132,7 @@
         </div>
     </nav>
 
+    <!-- Video Grid outside the nav section -->
     <div id="videoGrid" class="video-grid"></div>
 
     <script>
@@ -139,6 +140,20 @@
             const navContent = document.getElementById("navContent");
             navContent.style.display = navContent.style.display === "none" ? "block" : "none";
         }
+
+        let db;
+
+        const request = indexedDB.open('VideoDB', 1);
+
+        request.onupgradeneeded = function(event) {
+            db = event.target.result;
+            db.createObjectStore('videoFiles', { keyPath: 'id' });
+        };
+
+        request.onsuccess = function(event) {
+            db = event.target.result;
+            loadStoredVideos();
+        };
 
         function checkCode() {
             const code = document.getElementById('codeInput').value;
@@ -167,16 +182,15 @@
             const videoInput = document.getElementById('videoFileInput');
             if (videoInput.files.length > 0) {
                 Array.from(videoInput.files).forEach(file => {
-                    const fileURL = URL.createObjectURL(file);
-                    createVideoTask(file, fileURL);
-                    saveVideoToLocalStorage(file.name, fileURL);
+                    createVideoTask(file);
+                    saveVideoToDB(file);
                 });
             } else {
                 document.getElementById('uploadStatus').innerText = "Please select video files to upload.";
             }
         }
 
-        function createVideoTask(file, fileURL) {
+        function createVideoTask(file) {
             const videoGrid = document.getElementById('videoGrid');
 
             const videoTask = document.createElement('div');
@@ -187,7 +201,7 @@
 
             const videoPlayer = document.createElement('video');
             videoPlayer.controls = true;
-            videoPlayer.src = fileURL;
+            videoPlayer.src = URL.createObjectURL(file);
 
             videoContainer.appendChild(videoPlayer);
 
@@ -201,21 +215,39 @@
             videoGrid.insertBefore(videoTask, videoGrid.firstChild);
         }
 
-        function saveVideoToLocalStorage(fileName, fileURL) {
-            let uploadedVideos = JSON.parse(localStorage.getItem('uploadedVideos')) || [];
-            uploadedVideos.push({ name: fileName, url: fileURL });
-            localStorage.setItem('uploadedVideos', JSON.stringify(uploadedVideos));
+        function saveVideoToDB(file) {
+            const transaction = db.transaction(['videoFiles'], 'readwrite');
+            const store = transaction.objectStore('videoFiles');
+
+            const videoData = {
+                id: file.name,
+                file: file
+            };
+
+            const request = store.put(videoData);
+
+            request.onsuccess = function() {
+                console.log("Video file saved to IndexedDB");
+            };
+
+            request.onerror = function() {
+                console.error("Error saving video file to IndexedDB");
+            };
         }
 
         function loadStoredVideos() {
-            const uploadedVideos = JSON.parse(localStorage.getItem('uploadedVideos')) || [];
-            uploadedVideos.forEach(videoData => {
-                createVideoTask({ name: videoData.name }, videoData.url);
-            });
-        }
+            const transaction = db.transaction(['videoFiles'], 'readonly');
+            const store = transaction.objectStore('videoFiles');
+            const request = store.getAll();
 
-        // Load previously uploaded videos when the page loads
-        window.onload = loadStoredVideos;
+            request.onsuccess = function(event) {
+                const videoFiles = event.target.result.reverse();
+                videoFiles.forEach(videoData => {
+                    const file = new File([videoData.file], videoData.id);
+                    createVideoTask(file);
+                });
+            };
+        }
     </script>
 </body>
 </html>
