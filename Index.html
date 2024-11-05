@@ -3,290 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Store</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Video Tasks - Amazing Style</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: #fff;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        header {
-            background-color: #ff6600;
+        .nav-button {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
             color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2em;
-        }
-        header h1 i {
-            margin-right: 10px;
-        }
-        nav {
-            background-color: #333;
-            color: #fff;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1em;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
             cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        nav a:hover {
-            text-decoration: underline;
+        .nav-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(238, 9, 121, 0.5);
         }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        #navContent {
+            display: none;
+            background: linear-gradient(135deg, #243b55, #141e30);
+            padding: 24px;
+            border-radius: 16px;
+            margin: 16px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
         }
-        .app-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .app-list-item {
+        .video-upload {
             display: flex;
             align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-            transition: transform 0.2s ease-in-out;
+            justify-content: center;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
         }
-        .app-list-item:hover {
-            transform: scale(1.02);
-        }
-        .app-list-item img {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-        .app-details {
-            flex: 1;
-        }
-        .app-details h2 {
-            font-size: 1.2em;
-            margin: 0 0 5px 0;
-            color: #333;
-        }
-        .app-details p {
-            margin: 0 0 10px 0;
-            color: #666;
-        }
-        .app-download-link {
-            background-color: #ff6600;
-            color: #fff;
-            padding: 8px 12px;
-            text-decoration: none;
-            border-radius: 4px;
-            display: inline-block;
-            font-size: 0.9em;
-        }
-        .app-download-link:hover {
-            background-color: #e65c00;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-        .content-form {
-            margin-top: 20px;
-        }
-        .content-form label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .content-form input, .content-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .content-form button {
-            background-color: #ff6600;
-            color: #fff;
+        .video-upload input[type="text"],
+        .video-upload input[type="file"],
+        .video-upload button {
+            padding: 12px 20px;
+            border-radius: 30px;
             border: none;
-            padding: 10px 20px;
+            outline: none;
+            color: #333;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .video-upload input[type="text"] {
+            background: #fff;
+            color: #333;
+            font-size: 14px;
+            width: 180px;
+        }
+        .video-upload input[type="file"] {
+            background: #fff;
+            color: #333;
             cursor: pointer;
-            border-radius: 4px;
         }
-        .content-form button:hover {
-            background-color: #e65c00;
+        .video-upload button {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            color: #fff;
+            cursor: pointer;
         }
-        .content-cover {
-            margin-bottom: 10px;
+        .video-upload button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(238, 9, 121, 0.5);
         }
     </style>
 </head>
 <body>
+    <button class="nav-button" onclick="toggleNav()">Open Upload Form</button>
 
-<header>
-    <h1><i class="fas fa-store"></i> App Store</h1>
-</header>
+    <nav id="navContent">
+        <div class="video-upload">
+            <input type="text" id="codeInput" placeholder="Enter Code">
+            <input type="file" id="videoFileInput" accept="video/*" multiple disabled>
+            <button onclick="checkCode()">Submit Code</button>
+            <button onclick="loadVideos()" disabled id="loadButton">Load Videos</button>
+        </div>
+    </nav>
 
-<nav>
-    <a onclick="showApps()"><i class="fas fa-th"></i> Apps</a>
-    <a onclick="showContentForm()"><i class="fas fa-plus"></i> Publish App</a>
-</nav>
+    <div id="videoGrid" class="video-grid"></div>
 
-<div class="container" id="apps-container">
-    <!-- Apps will be dynamically inserted here -->
-</div>
-
-<div class="container content-form" id="content-form" style="display: none;">
-    <h2>Publish Your App</h2>
-    <form onsubmit="publishContent(event)">
-        <label for="content-title">App Title</label>
-        <input type="text" id="content-title" name="content-title" placeholder="Enter your app title" required>
-
-        <label for="content-apk">Upload APK</label>
-        <input type="file" id="content-apk" name="content-apk" class="content-cover" accept=".apk" required>
-
-        <label for="content-cover">App Logo</label>
-        <input type="file" id="content-cover" name="content-cover" class="content-cover" accept="image/*" required>
-
-        <label for="content-body">App Description</label>
-        <textarea id="content-body" name="content-body" rows="5" placeholder="Write your app description here..." required></textarea>
-
-        <button type="submit">Publish</button>
-    </form>
-</div>
-
-<footer>
-    &copy; 2024 Your App Store Name
-</footer>
-
-<script>
-    function showApps() {
-        document.getElementById('apps-container').style.display = 'block';
-        document.getElementById('content-form').style.display = 'none';
-        displayApps();
-    }
-
-    function showContentForm() {
-        document.getElementById('apps-container').style.display = 'none';
-        document.getElementById('content-form').style.display = 'block';
-    }
-
-    function getApps() {
-        return JSON.parse(localStorage.getItem('apps')) || [];
-    }
-
-    function saveApp(app) {
-        const apps = getApps();
-        apps.push(app);
-        localStorage.setItem('apps', JSON.stringify(apps));
-    }
-
-    function displayApps() {
-        const apps = getApps();
-        const appsContainer = document.getElementById('apps-container');
-        appsContainer.innerHTML = '';
-
-        if (apps.length === 0) {
-            const noAppsMessage = document.createElement('p');
-            noAppsMessage.textContent = 'No apps available.';
-            appsContainer.appendChild(noAppsMessage);
-        } else {
-            const appList = document.createElement('ul');
-            appList.className = 'app-list';
-
-            apps.forEach((app, index) => {
-                const listItem = document.createElement('li');
-                listItem.className = 'app-list-item';
-
-                const appLogo = document.createElement('img');
-                appLogo.src = app.logo;
-                appLogo.alt = `${app.title} Logo`;
-
-                const appDetails = document.createElement('div');
-                appDetails.className = 'app-details';
-
-                const appTitle = document.createElement('h2');
-                appTitle.textContent = app.title;
-
-                const appDescription = document.createElement('p');
-                appDescription.textContent = app.description;
-
-                const appDownloadLink = document.createElement('a');
-                appDownloadLink.href = app.apk;
-                appDownloadLink.textContent = 'Download';
-                appDownloadLink.className = 'app-download-link';
-                appDownloadLink.download = app.apkName;
-
-                appDetails.appendChild(appTitle);
-                appDetails.appendChild(appDescription);
-                appDetails.appendChild(appDownloadLink);
-
-                listItem.appendChild(appLogo);
-                listItem.appendChild(appDetails);
-
-                appList.appendChild(listItem);
-            });
-
-            appsContainer.appendChild(appList);
+    <script>
+        function toggleNav() {
+            const navContent = document.getElementById("navContent");
+            navContent.style.display = navContent.style.display === "none" ? "block" : "none";
         }
-    }
 
-    function publishContent(event) {
-        event.preventDefault();
-        const title = document.getElementById('content-title').value;
-        const apkInput = document.getElementById('content-apk');
-        const logoInput = document.getElementById('content-cover');
-        const description = document.getElementById('content-body').value;
+        let db;
 
-        const apkFile = apkInput.files[0];
-        const logoFile = logoInput.files[0];
+        const request = indexedDB.open('VideoDB', 1);
 
-        const reader = new FileReader();
-
-        reader.onloadend = function() {
-            const apk = reader.result;
-            reader.onloadend = function() {
-                const logo = reader.result;
-                const app = { 
-                    title, 
-                    description, 
-                    logo, 
-                    apk, 
-                    apkName: apkFile.name 
-                };
-                saveApp(app);
-                showApps();
-            };
-            if (logoFile) {
-                reader.readAsDataURL(logoFile);
-            }
+        request.onupgradeneeded = function(event) {
+            db = event.target.result;
+            db.createObjectStore('videoFiles', { keyPath: 'id' });
         };
 
-        if (apkFile) {
-            reader.readAsDataURL(apkFile);
+        request.onsuccess = function(event) {
+            db = event.target.result;
+            loadStoredVideos();
+        };
+
+        function checkCode() {
+            const code = document.getElementById('codeInput').value;
+            const videoInput = document.getElementById('videoFileInput');
+            const loadButton = document.getElementById('loadButton');
+
+            const storedCode = localStorage.getItem('videoUploadCode');
+
+            if (storedCode === code) {
+                videoInput.disabled = false;
+                loadButton.disabled = false;
+                alert("Code accepted! You can now upload video files.");
+            } else if (code === '112233') {
+                localStorage.setItem('videoUploadCode', code);
+                videoInput.disabled = false;
+                loadButton.disabled = false;
+                alert("Code accepted! You can now upload video files.");
+            } else {
+                alert("Invalid code. Please enter the correct code.");
+                videoInput.disabled = true;
+                loadButton.disabled = true;
+            }
         }
-    }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        showApps();
-    });
-</script>
-
+        function loadVideos() {
+            const videoInput = document.getElementById('videoFileInput');
+            if (videoInput.files.length > 0) {
+                Array.from(videoInput.files).forEach(file => {
+                    createVideoTask(file);
+                    saveVideoToDB(file);
+                });
+            } else {
+                alert("Please select video files to play.");
+            }
+        }
+    </script>
 </body>
 </html>
