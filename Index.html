@@ -117,11 +117,64 @@
             margin-top: 10px;
             color: #333;
         }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin: 16px;
+        }
+        
+        .balance {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            margin: 16px;
+        }
+        .balance p {
+            margin: 0;
+            font-size: 10px;
+        }
+        .controls button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            background: #243b55;
+            color: #fff;
+            cursor: pointer;
+            margin: 0 8px;
+        }
+        .controls button:hover {
+            background: #243b55;
+        }
+        .url-buttons {
+            display: flex;
+            justify-content: center;
+            margin: 16px;
+        }
+        .url-buttons a {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            background: #243b55;
+            color: #fff;
+            cursor: pointer;
+            margin: 0 8px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .url-buttons a:hover {
+            background: #243b55;
+        }
     </style>
 </head>
 <body>
     <button class="nav-button" onclick="toggleNav()">Upload Section</button>
     
+    <div class="balance">
+        <p>Balance: $<span id="balance">1.00</span></p>
+    </div>
     <nav id="navContent">
         <div class="video-upload">
             <input type="text" id="codeInput" placeholder="Enter permission code">
@@ -131,6 +184,23 @@
             <div id="uploadStatus"></div>
         </div>
     </nav>
+    
+    <div class="video-grid">
+        <div class="video-task">
+            <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="controls">
+                <button onclick="loadPreviousVideo()">Previous Video</button>
+                <button onclick="loadNextVideo()">Next Video</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- URL Buttons Section -->
+    <div class="url-buttons">
+        <a href="https://example.com/page1" target="_blank" onclick="markUrlVisited(0)">Visit Page 1</a>
+        <a href="https://example.com/page2" target="_blank" onclick="markUrlVisited(1)">Visit Page 2</a>
+        <a href="https://example.com/page3" target="_blank" onclick="markUrlVisited(2)">Visit Page 3</a>
+    </div>
 
     <!-- Video Grid outside the nav section -->
     <div id="videoGrid" class="video-grid"></div>
@@ -166,7 +236,7 @@
                 videoInput.disabled = false;
                 loadButton.disabled = false;
                 document.getElementById('uploadStatus').innerText = "Code accepted! You can now upload video files.";
-            } else if (code === '112233') {
+            } else if (code === '') {
                 localStorage.setItem('videoUploadCode', code);
                 videoInput.disabled = false;
                 loadButton.disabled = false;
@@ -248,6 +318,99 @@
                 });
             };
         }
+        
+        let videoIds = []; // Array to hold multiple video IDs
+        let currentVideoIndex = 0; // Track the current video index
+        let videosWatched = 0; // Counter for watched videos
+        let urlsVisited = [false, false, false]; // Track URL button visits
+        let balance = parseFloat(localStorage.getItem('balance')) || 1.00; // Load balance from localStorage or default to 1.00
+
+        // Update the balance display on page load
+        document.getElementById('balance').textContent = balance.toFixed(2);
+
+        function initializeVideos(initialIds) {
+            videoIds = initialIds.slice(0, 3); // Initialize with the first 3 videos
+            loadVideo(videoIds[currentVideoIndex]); // Load the first video
+        }
+
+        function addVideoId(videoId) {
+            // Add new videos after 3 initial ones only if conditions are met
+            if (videosWatched >= 3 && urlsVisited.every(v => v)) {
+                videoIds.push(videoId);
+                console.log(`Added video ID: ${videoId}`);
+            } else if (videoIds.length < 3) {
+                videoIds.push(videoId); // Allow adding first 3 videos without restrictions
+                console.log(`Added initial video ID: ${videoId}`);
+            } else {
+                alert("Watch 3 videos and visit all URLs before adding more videos.");
+            }
+        }
+
+        function loadVideo(videoId) {
+            // Check if the balance is enough before loading the video
+            if (balance >= 1) {
+                balance -= 1; // Deduct $1 for watching the video
+                localStorage.setItem('balance', balance.toFixed(2)); // Save the new balance to localStorage
+                document.getElementById('balance').textContent = balance.toFixed(2); // Update the balance display
+                const iframe = document.getElementById('videoIframe');
+                iframe.src = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=1`; // Load video with autoplay
+            } else {
+                alert("You don't have enough balance to watch a video. Please visit a URL to earn more.");
+            }
+        }
+
+        function loadNextVideo() {
+            if (videoIds.length > 0) {
+                currentVideoIndex = (currentVideoIndex + 1) % videoIds.length; // Move to the next video or loop back to the start
+                loadVideo(videoIds[currentVideoIndex]);
+            }
+        }
+
+        function loadPreviousVideo() {
+            if (videoIds.length > 0) {
+                currentVideoIndex = (currentVideoIndex - 1 + videoIds.length) % videoIds.length; // Move to the previous video, loop to the last if at the start
+                loadVideo(videoIds[currentVideoIndex]);
+            }
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === 0) { // Video ended
+                videosWatched += 1; // Increment watched video counter
+                loadNextVideo(); // Load the next video
+            }
+        }
+
+        function markUrlVisited(index) {
+            urlsVisited[index] = true; // Mark the URL as visited
+            addBalance(0.40); // Add $0.40 to the balance
+        }
+
+        function addBalance(amount) {
+            balance += amount; // Add the specified amount to the balance
+            localStorage.setItem('balance', balance.toFixed(2)); // Save the new balance in localStorage
+            document.getElementById('balance').textContent = balance.toFixed(2); // Update balance display
+        }
+
+        function initializePlayer() {
+            const iframe = document.getElementById('videoIframe');
+            const player = new YT.Player(iframe, {
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function loadYouTubeAPI() {
+            const script = document.createElement('script');
+            script.src = "https://www.youtube.com/iframe_api";
+            document.body.appendChild(script);
+            window.onYouTubeIframeAPIReady = initializePlayer;
+        }
+
+        loadYouTubeAPI();
+
+        // Initialize with the first three video IDs
+        initializeVideos(['AQO98HXS9o0', 'i9ddLGUqrlU', '3h5gedVBHm8']); // Replace with actual video IDs
     </script>
 </body>
 </html>
