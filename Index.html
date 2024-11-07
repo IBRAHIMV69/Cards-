@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Tasks - Amazing Style</title>
+    <title>Arewa Tube</title>
     <style>
-        /* Styles for Amazing Style Design */
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(to right, #141e30, #243b55);
@@ -14,127 +13,30 @@
             padding: 0;
             box-sizing: border-box;
         }
-        .nav-button {
-            background: linear-gradient(135deg, #ff6a00, #ee0979);
-            color: #fff;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-            margin: 16px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .nav-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(238, 9, 121, 0.5);
-        }
-        #navContent {
-            display: none;
-            background: linear-gradient(135deg, #243b55, #141e30);
-            padding: 24px;
-            border-radius: 16px;
-            margin: 16px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        .video-upload {
+        .url-buttons {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 32px;
-            border-radius: 20px;
+            justify-content: center;
+            margin-bottom: 16px;
         }
-        .video-upload input[type="text"],
-        .video-upload input[type="file"],
-        .video-upload button {
-            padding: 14px 28px;
-            border-radius: 12px;
+        .url-button {
+            padding: 10px 25px;
+            border-radius: 8px;
             border: none;
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-            transition: all 0.3s ease;
-        }
-        .video-upload input[type="text"], .video-upload input[type="file"] {
-            background: #fff;
-            color: #333;
-            width: 250px;
-        }
-        .video-upload button {
-            background: linear-gradient(135deg, #243b55, #Ffffff);
+            background: linear-gradient(to right, #243b55, #243b55, #243b55, #fff);
             color: #fff;
             cursor: pointer;
+            margin: 0 8px;
+            text-decoration: none;
+            text-align: center;
         }
-        .video-upload button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(255, 20, 100, 0.5);
+        .url-button:hover {
+            background: #243b55, #243b55, #fff;
         }
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 16px;
             padding: 16px;
-        }
-        .video-task {
-            border-radius: 12px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #243b55, #Ffffff);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            max-width: 320px;
-        }
-        .video-task:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-        }
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            overflow: hidden;
-            border-radius: 8px;
-            background-color: #000;
-        }
-        video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .video-title {
-            font-size: 15px;
-            font-weight: bold;
-            margin-top: 10px;
-            color: #333;
-        }
-        .controls {
-            display: flex;
-            justify-content: center;
-            margin: 16px;
-        }
-        
-        .balance {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 8px;
-            margin: 16px;
-        }
-        .balance p {
-            margin: 0;
-            font-size: 10px;
         }
         .video-task {
             border-radius: 8px;
@@ -153,301 +55,91 @@
             height: 180px;
             border-bottom: 1px solid #243b55;
         }
+        .current-video {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 16px;
+        }
+        .controls {
+            margin-top: 8px;
+        }
         .controls button {
             padding: 8px 16px;
-            border-radius: 4px;
+            border-radius: 8px;
             border: none;
-            background: #243b55;
+            background: linear-gradient(to right, #fff, #243b55, #fff);
             color: #fff;
             cursor: pointer;
             margin: 0 8px;
         }
         .controls button:hover {
-            background: #243b55;
-        }
-        .url-buttons {
-            display: flex;
-            justify-content: center;
-            margin: 16px;
-        }
-        .url-buttons a {
-            padding: 8px 16px;
-            border-radius: 4px;
-            border: none;
-            background: #243b55;
-            color: #fff;
-            cursor: pointer;
-            margin: 0 8px;
-            text-decoration: none;
-            text-align: center;
-        }
-        .url-buttons a:hover {
-            background: #243b55;
+            background: linear-gradient(to right, #141e30, #243b55);
         }
     </style>
 </head>
 <body>
-    <p><script type="text/javascript">
-	atOptions = {
-		'key' : '79d10f3adff39302b20c2ed058d79c0a',
-		'format' : 'iframe',
-		'height' : 90,
-		'width' : 728,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '47d875e6b049bffab850f49f98fdd924',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/47d875e6b049bffab850f49f98fdd924/invoke.js"></script>
-    <button class="nav-button" onclick="toggleNav()">Upload Section</button>
     
-    <div class="balance">
-        <p>Balance: $<span id="balance">1.00</span></p>
-    </div>
-    <nav id="navContent">
-        <div class="video-upload">
-            <input type="text" id="codeInput" placeholder="Enter permission code">
-            <input type="file" id="videoFileInput" accept="video/*" multiple disabled>
-            <button onclick="checkCode()">Submit</button>
-            <button onclick="loadVideos()" disabled id="loadButton">Upload</button>
-            <div id="uploadStatus"></div>
-        </div>
-    </nav>
-    
-    <div class="video-grid">
-        <div class="video-task">
-            <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <div class="controls">
-                <button onclick="loadPreviousVideo()">Previous Video</button>
-                <button onclick="loadNextVideo()">Next Video</button>
-            </div>
-        </div>
-    </div>
-    
+
+           <!-- Page Title -->
+    <h1 style="text-align: center; color: #fff; margin-top: 20px;">Arewa Tube</h1>
+
     <!-- URL Buttons Section -->
     <div class="url-buttons">
-        <a href="https://www.profitablecpmrate.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586" target="_blank" onclick="markUrlVisited(0)">Ads + $1.25</a>
-        <a href="https://www.profitablecpmrate.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586" target="_blank" onclick="markUrlVisited(1)">Ads + $1.25</a>
-        <a href="https://www.profitablecpmrate.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586" target="_blank" onclick="markUrlVisited(2)">Ads + $1.25</a>
+        <a href="https://example.com/hausa" target="_blank" class="url-button">Hausa</a>
+        <a href="https://example.com/hindu" target="_blank" class="url-button">Hindu</a>
+        <a href="https://example.com/america" target="_blank" class="url-button">America</a>
     </div>
 
-    <!-- Video Grid outside the nav section -->
-    <div id="videoGrid" class="video-grid"></div>
+    <!-- Current Video Player Section -->
+    <div class="current-video">
+        <iframe id="currentVideoIframe" src="https://www.youtube.com/embed/BDZLKXdZ2LM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="controls">
+            <button onclick="loadPreviousVideo()">Previous</button>
+            <button onclick="loadNextVideo()">Next video</button>
+        </div>
+    </div>
+
+    <div class="video-grid" id="videoGrid">
+        <!-- Video thumbnails will be added here dynamically -->
+    </div>
+    
+    <script async="async" data-cfasync="false" src="//pl24944957.profitablecpmrate.com/0c660b71c39d1e626c233711dd16fde3/invoke.js"></script> <div id="container-0c660b71c39d1e626c233711dd16fde3"></div>
 
     <script>
-        function toggleNav() {
-            const navContent = document.getElementById("navContent");
-            navContent.style.display = navContent.style.display === "none" ? "block" : "none";
-        }
+        let videoIds = ['BDZLKXdZ2LM', 'nAXCSYXTB7k', '_SpeGQL9rCg', 'HLSBut2yzqI', 'SMh4zwcmh1A'];
+        let currentVideoIndex = 0;
 
-        let db;
-
-        const request = indexedDB.open('VideoDB', 1);
-
-        request.onupgradeneeded = function(event) {
-            db = event.target.result;
-            db.createObjectStore('videoFiles', { keyPath: 'id' });
-        };
-
-        request.onsuccess = function(event) {
-            db = event.target.result;
-            loadStoredVideos();
-        };
-
-        function checkCode() {
-            const code = document.getElementById('codeInput').value;
-            const videoInput = document.getElementById('videoFileInput');
-            const loadButton = document.getElementById('loadButton');
-
-            const storedCode = localStorage.getItem('videoUploadCode');
-
-            if (storedCode === code) {
-                videoInput.disabled = false;
-                loadButton.disabled = false;
-                document.getElementById('uploadStatus').innerText = "Code accepted! You can now upload video files.";
-            } else if (code === '112233') {
-                localStorage.setItem('videoUploadCode', code);
-                videoInput.disabled = false;
-                loadButton.disabled = false;
-                document.getElementById('uploadStatus').innerText = "Code accepted! You can now upload video files.";
-            } else {
-                document.getElementById('uploadStatus').innerText = "Invalid code. Please enter the correct code.";
-                videoInput.disabled = true;
-                loadButton.disabled = true;
-            }
-        }
-
-        function loadVideos() {
-            const videoInput = document.getElementById('videoFileInput');
-            if (videoInput.files.length > 0) {
-                Array.from(videoInput.files).forEach(file => {
-                    createVideoTask(file);
-                    saveVideoToDB(file);
-                });
-            } else {
-                document.getElementById('uploadStatus').innerText = "Please select video files to upload.";
-            }
-        }
-
-        function createVideoTask(file) {
+        function initializeVideoGrid() {
             const videoGrid = document.getElementById('videoGrid');
+            videoGrid.innerHTML = '';
 
-            const videoTask = document.createElement('div');
-            videoTask.className = 'video-task';
-
-            const videoContainer = document.createElement('div');
-            videoContainer.className = 'video-container';
-
-            const videoPlayer = document.createElement('video');
-            videoPlayer.controls = true;
-            videoPlayer.src = URL.createObjectURL(file);
-
-            videoContainer.appendChild(videoPlayer);
-
-            const videoTitle = document.createElement('p');
-            videoTitle.className = 'video-title';
-            videoTitle.textContent = file.name;
-
-            videoTask.appendChild(videoContainer);
-            videoTask.appendChild(videoTitle); // Title is now below the video
-
-            videoGrid.insertBefore(videoTask, videoGrid.firstChild);
-        }
-
-        function saveVideoToDB(file) {
-            const transaction = db.transaction(['videoFiles'], 'readwrite');
-            const store = transaction.objectStore('videoFiles');
-
-            const videoData = {
-                id: file.name,
-                file: file
-            };
-
-            const request = store.put(videoData);
-
-            request.onsuccess = function() {
-                console.log("Video file saved to IndexedDB");
-            };
-
-            request.onerror = function() {
-                console.error("Error saving video file to IndexedDB");
-            };
-        }
-
-        function loadStoredVideos() {
-            const transaction = db.transaction(['videoFiles'], 'readonly');
-            const store = transaction.objectStore('videoFiles');
-            const request = store.getAll();
-
-            request.onsuccess = function(event) {
-                const videoFiles = event.target.result.reverse();
-                videoFiles.forEach(videoData => {
-                    const file = new File([videoData.file], videoData.id);
-                    createVideoTask(file);
-                });
-            };
-        }
-        
-        let videoIds = []; // Array to hold multiple video IDs
-        let currentVideoIndex = 0; // Track the current video index
-        let videosWatched = 0; // Counter for watched videos
-        let urlsVisited = [false, false, false]; // Track URL button visits
-        let balance = parseFloat(localStorage.getItem('balance')) || 1.00; // Load balance from localStorage or default to 1.00
-
-        // Update the balance display on page load
-        document.getElementById('balance').textContent = balance.toFixed(2);
-
-        function initializeVideos(initialIds) {
-            videoIds = initialIds.slice(0, 3); // Initialize with the first 3 videos
-            loadVideo(videoIds[currentVideoIndex]); // Load the first video
-        }
-
-        function addVideoId(videoId) {
-            // Add new videos after 3 initial ones only if conditions are met
-            if (videosWatched >= 3 && urlsVisited.every(v => v)) {
-                videoIds.push(videoId);
-                console.log(`Added video ID: ${videoId}`);
-            } else if (videoIds.length < 3) {
-                videoIds.push(videoId); // Allow adding first 3 videos without restrictions
-                console.log(`Added initial video ID: ${videoId}`);
-            } else {
-                alert("Watch 3 videos and visit all URLs before adding more videos.");
-            }
-        }
-
-        function loadVideo(videoId) {
-            // Check if the balance is enough before loading the video
-            if (balance >= 1) {
-                balance -= 1; // Deduct $1 for watching the video
-                localStorage.setItem('balance', balance.toFixed(2)); // Save the new balance to localStorage
-                document.getElementById('balance').textContent = balance.toFixed(2); // Update the balance display
-                const iframe = document.getElementById('videoIframe');
-                iframe.src = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=1`; // Load video with autoplay
-            } else {
-                ("You don't have enough balance to watch a video. Please visit a URL to earn more.");
-            }
-        }
-
-        function loadNextVideo() {
-            if (videoIds.length > 0) {
-                currentVideoIndex = (currentVideoIndex + 1) % videoIds.length; // Move to the next video or loop back to the start
-                loadVideo(videoIds[currentVideoIndex]);
-            }
-        }
-
-        function loadPreviousVideo() {
-            if (videoIds.length > 0) {
-                currentVideoIndex = (currentVideoIndex - 1 + videoIds.length) % videoIds.length; // Move to the previous video, loop to the last if at the start
-                loadVideo(videoIds[currentVideoIndex]);
-            }
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data === 0) { // Video ended
-                videosWatched += 1; // Increment watched video counter
-                loadNextVideo(); // Load the next video
-            }
-        }
-
-        function markUrlVisited(index) {
-            urlsVisited[index] = true; // Mark the URL as visited
-            addBalance(1.25); // Add $1.25 to the balance
-        }
-
-        function addBalance(amount) {
-            balance += amount; // Add the specified amount to the balance
-            localStorage.setItem('balance', balance.toFixed(2)); // Save the new balance in localStorage
-            document.getElementById('balance').textContent = balance.toFixed(2); // Update balance display
-        }
-
-        function initializePlayer() {
-            const iframe = document.getElementById('videoIframe');
-            const player = new YT.Player(iframe, {
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
+            videoIds.forEach((videoId) => {
+                const videoContainer = document.createElement('div');
+                videoContainer.className = 'video-task';
+                videoContainer.innerHTML = `
+                    <iframe src="https://www.youtube.com/embed/${videoId}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                `;
+                videoGrid.appendChild(videoContainer);
             });
         }
 
-        function loadYouTubeAPI() {
-            const script = document.createElement('script');
-            script.src = "https://www.youtube.com/iframe_api";
-            document.body.appendChild(script);
-            window.onYouTubeIframeAPIReady = initializePlayer;
+        function loadVideo(videoId) {
+            document.getElementById('currentVideoIframe').src = `https://www.youtube.com/embed/${videoId}`;
         }
 
-        loadYouTubeAPI();
+        function loadNextVideo() {
+            currentVideoIndex = (currentVideoIndex + 1) % videoIds.length;
+            loadVideo(videoIds[currentVideoIndex]);
+        }
 
-        // Initialize with the first three video IDs
-        initializeVideos(['Z4X0gLPcZ5c', 'Ho_uGTvdxGw', 'VEe69zWs2MA', 'KxnrVjPwmoY']); // Replace with actual video IDs
+        function loadPreviousVideo() {
+            currentVideoIndex = (currentVideoIndex - 1 + videoIds.length) % videoIds.length;
+            loadVideo(videoIds[currentVideoIndex]);
+        }
+
+        initializeVideoGrid();
     </script>
-    <script type='text/javascript' src='//pl24928085.profitablecpmrate.com/07/ef/82/07ef828dded96ec238230f7ce90b82be.js'></script>
+<script type='text/javascript' src='//pl24928085.profitablecpmrate.com/07/ef/82/07ef828dded96ec238230f7ce90b82be.js'></script>
 </body>
 </html>
