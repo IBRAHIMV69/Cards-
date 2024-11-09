@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #141e30, #243b55);
+            background-color: #000;
             color: #fff;
             display: flex;
             flex-direction: column;
@@ -32,7 +32,7 @@
             font-weight: bold;
             text-align: center;
             letter-spacing: 3px;
-            background: linear-gradient(to right, #ff7e5f, #fff);
+            background: linear-gradient(to right, #fff, #fff);
             -webkit-background-clip: text;
             color: transparent;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -42,7 +42,7 @@
         .page-title i {
             margin-right: 10px;
             font-size: 3.5rem;
-            color: #fff;
+            color: #ffffff;
             transition: transform 0.3s ease;
         }
 
@@ -77,7 +77,7 @@
             width: 110%;
             height: 200px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
         }
 
         /* Bottom control panel styling */
@@ -86,7 +86,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(to right, #000, #243b55);
+            background-color: #000;
             display: flex;
             justify-content: space-around;
             padding: 8px 0;
@@ -107,7 +107,7 @@
         }
 
         .controls i {
-            background: linear-gradient(to right, #141e30, #243b55);
+            background-color: #000;
             color: #fff;
             width: 60px;
             height: 60px;
@@ -142,9 +142,9 @@
         }
 
         .video-controls button {
-            padding: 10px 50px;
-            font-size: 1.2rem;
-            background: linear-gradient(to right, #000, #243b55);
+            padding: 12px 40px;
+            font-size: 1.7rem;
+            background-color: #000;
             color: white;
             border: none;
             border-radius: 8px;
@@ -160,7 +160,7 @@
 </head>
 <body>
     <div class="page-title">
-        <i class="fas fa-play-circle"></i>A Tube 
+        <i class="fas fa-play-circle"></i>Å tubê 
     </div>
 
     <!-- Current Video Display -->
@@ -170,7 +170,7 @@
         <!-- Video Navigation Controls -->
         <div class="video-controls">
             <button onclick="loadPreviousVideo()">⏮️</button>
-            <button onclick="loadNextVideo()">⏭️</button></button>
+            <button onclick="loadNextVideo()">⏭️</button>
         </div>
     </div>
 
@@ -198,10 +198,12 @@
             <div class="control-text">Live</div>
         </a>
     </div>
-<script async="async" data-cfasync="false" src="//pl24944957.profitablecpmrate.com/0c660b71c39d1e626c233711dd16fde3/invoke.js"></script>
+    
+    <script async="async" data-cfasync="false" src="//pl24944957.profitablecpmrate.com/0c660b71c39d1e626c233711dd16fde3/invoke.js"></script>
 <div id="container-0c660b71c39d1e626c233711dd16fde3"></div>
+
     <script>
-        let videoIds = ['bW1bn9anuzA', 'n8wzMS1OQXo?si', '8hNwZUsJyyo', 'NXqPy0J1ABM', 'hEBsFZFHKUo', 'gb9kBwaYV6g', 'kwlOd7Xjd_I', 'dyaECnNOwbk', 'RswnDonfQGg', 'O2Lc6Wqj5po'];
+        let videoIds = ['bW1bn9anuzA', 'n8wzMS1OQXo?si', '8hNwZUsJyyo', 'NXqPy0J1ABM', 'hEBsFZFHKUo', 'gb9kBwaYV6g', 'dyaECnNOwbk', 'RswnDonfQGg', 'O2Lc6Wqj5po'];
         let currentVideoIndex = 0;
 
         function initializeVideoGrid() {
