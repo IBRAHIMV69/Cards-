@@ -3,205 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arewa</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Arewa Tube</title>
     <style>
-        * {
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: #fff;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #141e30, #243b55);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            padding: 0 20px;
-            overflow-y: scroll;
-        }
-
-        .page-title {
-            margin-top: 30px;
-            display: flex;
-            align-items: center;
-            font-size: 3rem;
-            font-weight: bold;
-            text-align: center;
-            letter-spacing: 3px;
-            background: linear-gradient(to right, #ff7e5f, #fff);
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            text-transform: capitalize;
-        }
-
-        .page-title i {
-            margin-right: 10px;
-            font-size: 3.5rem;
-            color: #fff;
-            transition: transform 0.3s ease;
-        }
-
-        .page-title i:hover {
-            transform: scale(1.1);
-        }
-
-        /* Additional styling for layout and video display */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1200px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            padding: 16px;
         }
-
         .video-task {
-            background-color: #fff;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            background: #243b55, #Ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
         .video-task:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
-
         iframe {
-            width: 110%;
-            height: 200px;
             border: none;
-            border-radius: 5px;
-        }
-
-        /* Bottom control panel styling */
-        .controls {
-            position: fixed;
-            bottom: 0;
-            left: 0;
             width: 100%;
-            background: linear-gradient(to right, #000, #243b55);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0;
-            box-shadow: 0 -0px 12px rgba(0, 0, 0, 0.3);
-            z-index: 5;
+            height: 180px;
+            border-bottom: 1px solid #243b55;
         }
-
-        .controls a {
-            text-decoration: none;
-            text-align: center;
-            color: #333;
-            transition: all 0.3s ease;
-        }
-
-        .controls a:hover i {
-            color: #000;
-            transform: scale(1.1);
-        }
-
-        .controls i {
-            background: linear-gradient(to right, #141e30, #243b55);
-            color: #fff;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .controls .control-text {
-            margin-top: 5px;
-            font-size: 0.2rem;
-            color: #fff;
-        }
-
         .current-video {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 20px;
-            flex-grow: 1;
+            margin: 16px;
         }
-
-        .video-controls {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
+        .controls {
+            margin-top: 8px;
         }
-
-        .video-controls button {
-            padding: 10px 50px;
-            font-size: 1.2rem;
-            background: linear-gradient(to right, #000, #243b55);
-            color: white;
-            border: none;
+        .controls button {
+            padding: 8px 16px;
             border-radius: 8px;
+            border: none;
+            background: #0072ff;
+            color: #fff;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            margin: 0 8px;
         }
-
-        .video-controls button:hover {
-            background-color: #000;
+        .controls button:hover {
+            background: #005bb5;
         }
-
+        .nav {
+            cursor: pointer;
+            background: #005bb5;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.5rem; /* Equivalent to h2 size */
+        }
+        .nav:hover {
+            background: #003f8e;
+        }
     </style>
 </head>
 <body>
-    <div class="page-title">
-        <i class="fas fa-play-circle"></i>A Tube 
-    </div>
 
-    <!-- Current Video Display -->
-    <div class="current-video">
-        <iframe id="currentVideoIframe" width="560" height="315" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        
-        <!-- Video Navigation Controls -->
-        <div class="video-controls">
-            <button onclick="loadPreviousVideo()">⏮️</button>
-            <button onclick="loadNextVideo()">⏭️</button></button>
+    <!-- Navigation Button to Toggle Video Grid -->
+    <div class="nav" onclick="toggleNavContent()">HINDU MOVIES</div>
+
+    <!-- Nav Section containing Video Grid and Controls (Initially Hidden) -->
+    <div id="navContent" style="display: none;">
+        <!-- Current Video Player Section -->
+        <div class="current-video">
+            <iframe id="currentVideoIframe" src="https://www.youtube.com/embed/AQO98HXS9o0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="controls">
+                <button onclick="loadPreviousVideo()">Previous</button>
+                <button onclick="loadNextVideo()">Next video</button>
+            </div>
+        </div>
+
+        <!-- Video Grid Section -->
+        <div class="video-grid" id="videoGrid">
+            <!-- Video thumbnails will be added here dynamically -->
         </div>
     </div>
 
-    <!-- Video Grid -->
-    <div class="video-grid" id="videoGrid">
-        <!-- Video thumbnails will be added here dynamically -->
-    </div>
-
-    <!-- Bottom Control Panel -->
-    <div class="controls">
-        <a href="https://example.com/upload" target="_blank" aria-label="Upload Energy">
-            <i class="fas fa-upload"></i>
-            <div class="control-text">Upload</div>
-        </a>
-        <a href="https://example.com/playlist" target="_blank" aria-label="Playlist">
-            <i class="fas fa-list"></i>
-            <div class="control-text">Playlist</div>
-        </a>
-        <a href="https://example.com/novels" target="_blank" aria-label="Novels">
-            <i class="fas fa-book"></i>
-            <div class="control-text">Novels</div>
-        </a>
-        <a href="https://example.com/live" target="_blank" aria-label="Live">
-            <i class="fas fa-broadcast-tower"></i>
-            <div class="control-text">Live</div>
-        </a>
-    </div>
-<script async="async" data-cfasync="false" src="//pl24944957.profitablecpmrate.com/0c660b71c39d1e626c233711dd16fde3/invoke.js"></script>
-<div id="container-0c660b71c39d1e626c233711dd16fde3"></div>
     <script>
-        let videoIds = ['bW1bn9anuzA', 'n8wzMS1OQXo?si', '8hNwZUsJyyo', 'NXqPy0J1ABM', 'hEBsFZFHKUo', 'gb9kBwaYV6g', 'kwlOd7Xjd_I', 'dyaECnNOwbk', 'RswnDonfQGg', 'O2Lc6Wqj5po'];
+        let videoIds = ['BDZLKXdZ2LM', 'nAXCSYXTB7k', '_SpeGQL9rCg', 'HLSBut2yzqI', 'SMh4zwcmh1A'];
         let currentVideoIndex = 0;
 
         function initializeVideoGrid() {
@@ -212,7 +105,7 @@
                 const videoContainer = document.createElement('div');
                 videoContainer.className = 'video-task';
                 videoContainer.innerHTML = `
-                    <iframe src="https://www.youtube.com/embed/${videoId}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/${videoId}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen onclick="loadVideo('${videoId}')"></iframe>
                 `;
                 videoGrid.appendChild(videoContainer);
             });
@@ -232,10 +125,19 @@
             loadVideo(videoIds[currentVideoIndex]);
         }
 
-        // Initialize video grid and load the first video
+        function toggleNavContent() {
+            const navContent = document.getElementById('navContent');
+            // Toggle the display of the nav content (video section)
+            if (navContent.style.display === 'none') {
+                navContent.style.display = 'block';
+            } else {
+                navContent.style.display = 'none';
+            }
+        }
+
+        // Initialize video grid on page load
         initializeVideoGrid();
-        loadVideo(videoIds[currentVideoIndex]);
     </script>
-<script type='text/javascript' src='//pl24928085.profitablecpmrate.com/07/ef/82/07ef828dded96ec238230f7ce90b82be.js'></script>
+
 </body>
 </html>
