@@ -231,7 +231,7 @@
 
 .live-videos iframe {
     width: 100%;
-    height: 300px;
+    height: 200px;
     margin-bottom: 20px;
     border: none;
     border-radius: 10px;
@@ -275,7 +275,7 @@
 
 .hot-videos iframe {
     width: 100%;
-    height: 300px;
+    height: 200px;
     margin-bottom: 20px;
     border: none;
     border-radius: 10px;
@@ -319,7 +319,7 @@
 
 .music-videos iframe {
     width: 100%;
-    height: 300px;
+    height: 180px;
     margin-bottom: 20px;
     border: none;
     border-radius: 10px;
@@ -344,7 +344,7 @@
     padding: 0;
 }
 
-.novel-audios {
+.novels {
     display: none;
     position: fixed;
     top: 0;
@@ -357,21 +357,38 @@
     padding: 20px;
 }
 
-.novel-audios.active {
+.novels.active {
     display: block;
 }
 
-.novel-audios .audio-wrapper {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.novel-audios audio {
+.novels iframe {
     width: 100%;
-    height: 50px;
+    height: 400px;
+    margin-bottom: 20px;
     border: none;
     border-radius: 10px;
-    background: #444;
+}
+
+.url-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.url-buttons a {
+    text-decoration: none;
+    background: #b21f1f;
+    color: white;
+    padding: 8px 60px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.url-buttons a:hover {
+    background: #0056b3;
 }
 
 .close-btn {
@@ -387,6 +404,63 @@
     font-size: 1rem;
     z-index: 11;
 }
+.body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.premium {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 10;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.premium.active {
+    display: block;
+}
+
+.premium iframe {
+    width: 100%;
+    height: calc(100vw * 9 / 16); /* Maintain 16:9 aspect ratio */
+    max-height: 360px; /* Optional: Limit max height */
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.chat-btn, .buy-btn {
+    padding: 8px 50px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white; /* Ensure button text color is white */
+    display: inline-block;
+}
+
+.chat-btn {
+    background-color: #fff; /* Blue for chat */
+}
+
+.buy-btn {
+    background-color: #C1E526; /* Green for buy */
+}
         
     </style>
 </head>
@@ -394,35 +468,103 @@
     
     <!-- Bottom Control Panel -->
     <div class="controls">
-        <a href="https://example.com/upload" target="_blank" aria-label="Upload Energy">
-            <i class="fas fa-upload"></i>
-            <div class="control-text"></div>
+        <a onclick="togglePremium()">
+    <i class="fas fa-star"></i>
+</a>
+
+<div class="premium" id="premium">
+    <button class="close-btn" onclick="togglePremium(event)">Close</button>
+
+    <h2 style="color: white; text-align: center;">Premium</h2>
+
+    <!-- Example: Premium Video 1 -->
+    <div class="video-wrapper">
+        <iframe
+            src="https://www.youtube.com/embed/DvV1u0CTVfc" 
+            allowfullscreen>
+        </iframe>
+        <h3 style="color: white; text-align: center;">Premium</h3>
         </a>
-        <a onclick="toggleNovelAudios()">
+        <div class="button-container">
+            <a href="https://example.com/chat" class="chat-btn" target="_blank">🗨️ Chat</a>
+            <a href="https://example.com/buy" class="buy-btn" target="_blank">🛒 Buy</a>
+        </div>
+    </div>
+
+    <!-- Example: Premium Video 2 -->
+    <div class="video-wrapper">
+        <iframe 
+            src="https://www.youtube.com/embed/sQ0IHGTp6Zc" 
+            allowfullscreen>
+        </iframe>
+        <h3 style="color: white; text-align: center;">Premium</h3>
+        <div class="button-container">
+            <a href="https://example.com/chat" class="chat-btn" target="_blank">🗨️ Chat</a>
+            <a href="https://example.com/buy" class="buy-btn" target="_blank">🛒 Buy</a>
+        </div>
+    </div>
+
+    <!-- Example: Premium Video 3 -->
+    <div class="video-wrapper">   
+        <iframe 
+            src="https://www.youtube.com/embed/gCNeDWCI0vo" 
+            allowfullscreen>
+        </iframe>
+        <h3 style="color: white; text-align: center;">Premium</h3>
+        <div class="button-container">
+            <a href="https://example.com/chat" class="chat-btn" target="_blank">🗨️ Chat</a>
+            <a href="https://example.com/buy" class="buy-btn" target="_blank">🛒 Buy</a>
+        </div>
+    </div>
+</div>
+
+        </a>
+        <a onclick="toggleNovels()">
     <i class="fas fa-book"></i> 
 </a>
 
-<div class="novel-audios" id="novelAudios">
-    <button class="close-btn" onclick="toggleNovelAudios(event)">Close</button>
+<div class="novels" id="novels">
+    <button class="close-btn" onclick="toggleNovels(event)">Close</button>
 
-    <h2 style="color: white; text-align: center;">Novels</h2>
+    <h2 style="color: white; text-align: center;"></h2>
 
-    <!-- Example: Google Drive Audio -->
-    <div class="audio-wrapper">
-        <h3 style="color: white;">The Enchanted Forest</h3>
-        <audio controls>
-            <source src="https://drive.google.com/uc?export=download&id=1aBcD3EfGh4567IjK8LmNo" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+    <!-- Novel 1 -->
+    <div class="video-wrapper">
+        <iframe 
+            src="https://www.youtube.com/embed/DvV1u0CTVfc" 
+            allowfullscreen>
+        </iframe>
+        <h3 style="color: white;">Novel 1: "The Stars Within"</h3>
+        <div class="url-buttons">
+            <a href="https://example.com/chat-novel1" target="_blank">🗨️ Chat</a>
+            <a href="https://example.com/buy-novel1" target="_blank">🛒 Buy</a>
+        </div>
     </div>
 
-    <!-- Example: Local Audio -->
-    <div class="audio-wrapper">
-        <h3 style="color: white;">The Hidden Truth</h3>
-        <audio controls>
-            <source src="https://www.example.com/audio/novel2.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+    <!-- Novel 2 -->
+    <div class="video-wrapper">
+       <iframe 
+            src="https://www.youtube.com/embed/DvV1u0CTVfc" 
+            allowfullscreen>
+        </iframe>
+         <h3 style="color: white;">Novel 2: "Echoes of the Past"</h3>
+        <div class="url-buttons">
+            <a href="https://example.com/chat-novel2" target="_blank">🗨️ Chat</a>
+            <a href="https://example.com/buy-novel2" target="_blank">🛒 Buy</a>
+        </div>
+    </div>
+
+    <!-- Novel 3 -->
+    <div class="video-wrapper">
+        <iframe 
+            src="https://www.youtube.com/embed/DvV1u0CTVfc" 
+            allowfullscreen>
+        </iframe>
+        <h3 style="color: white;">Novel 3: "Wilderness Chronicles"</h3>
+        <div class="url-buttons">
+            <a href="https://example.com/chat-novel3" target="_blank">🗨️ Chat</a>
+            <a href="https://example.com/buy-novel3" target="_blank">🛒 Buy</a>
+        </div>
     </div>
 </div>
         </a>
@@ -448,7 +590,7 @@
     <div class="video-wrapper">
         <h3 style="color: white;"></h3>
         <iframe 
-            src="https://www.youtube.com/embed/KPX-5-2GlU0" 
+            src="https://www.youtube.com/embed/sQ0IHGTp6Zc" 
             allowfullscreen>
         </iframe>
     </div>
@@ -457,7 +599,7 @@
     <div class="video-wrapper">
         <h3 style="color: white;"></h3>
         <iframe 
-            src="https://www.youtube.com/embed/xeFy89wKy7g" 
+            src="https://www.youtube.com/embed/gCNeDWCI0vo" 
             allowfullscreen>
         </iframe>
     </div>
@@ -569,7 +711,6 @@
                 title: "American Movies",
                 videos: [
                     { id: 'DvV1u0CTVfc', title: 'DEATH FIGHTER', thumbnail: 'https://img.youtube.com/vi/DvV1u0CTVfc/mqdefault.jpg', duration: 'American Movie' },
-                    { id: 'KPX-5-2GlU0', title: 'A BULLET PROOF', thumbnail: 'https://img.youtube.com/vi/KPX-5-2GlU0/mqdefault.jpg', duration: 'Blood Thirsty Monster.' },
                     { id: 'BjkncLAZu80', title: 'VIKING HUNTRESS;', thumbnail: 'https://img.youtube.com/vi/BjkncLAZu80/mqdefault.jpg', duration: 'Rune Of The Dead Full Movie' },
                      { id: 'M1mrsNL_i3w', title: 'INVASION OF THE ANIMAL PEOPLE', thumbnail: 'https://img.youtube.com/vi/M1mrsNL_i3w/mqdefault.jpg', duration: 'Exclusive Full Sci-Fi Movie' },
                 ],
@@ -675,12 +816,20 @@ function initializeHiddenPlaylist(videos, container) {
     });
 }
 
-function toggleNovelAudios(event) {
+function togglePremium(event) {
     // Prevents event propagation if the click is on the close button
     if (event) event.stopPropagation();
     
-    const novelAudios = document.getElementById('novelAudios');
-    novelAudios.classList.toggle('active');
+    const premium = document.getElementById('premium');
+    premium.classList.toggle('active');
+}
+
+function toggleNovels(event) {
+    // Prevents event propagation if the click is on the close button
+    if (event) event.stopPropagation();
+    
+    const novels = document.getElementById('novels');
+    novels.classList.toggle('active');
 }
 
 function toggleHotVideos(event) {
