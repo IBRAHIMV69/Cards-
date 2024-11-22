@@ -22,6 +22,70 @@
             padding: 20px;
             transition: all 0.3s ease;
         }
+        .page-title-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .page-title-icon {
+            font-size: 1.8rem;
+            color: #ff0000;
+            animation: pulse 1.5s infinite;
+        }
+
+        .page-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #ff0000, #ff7300);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            letter-spacing: 1.5px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+          }
+          .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.title {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.title-icons {
+    display: flex;
+    gap: 15px;
+    justify-content: right;
+    align-items: right;
+}
+
+.title-icons a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: #ff0000;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.title-icons a:hover {
+    color: #ff7300;
+    transform: scale(1.2);
+}
 
         .current-video-container {
             width: 100%;
@@ -465,6 +529,28 @@
     </style>
 </head>
 <body>
+    <div class="page-title-container">
+        <i class="fas fa-play-circle page-title-icon"></i>
+        <div class="page-title">iTube | </div>
+    <div class="title-icons">
+            <a href="https://facebook.com" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://twitter.com" target="_blank">
+                <i class="fab fa-twitter"></i> 
+            </a>
+            <a href="https://t.me" target="_blank">
+                <i class="fab fa-telegram"></i> 
+            </a>
+            <a href="https://wa.me" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://youtube.com/@itube-d1s?si=PaLVQyoEs_7GGc0y" target="_blank">
+                <i class="fab fa-youtube"></i> 
+            </a>
+            
+        </div>
+    </div>
     
     <!-- Bottom Control Panel -->
     <div class="controls">
@@ -699,7 +785,7 @@
             {
                 title: "Indian Hausa",
                 videos: [
-                    { id: 'gCNeDWCI0vo', title: 'GURNANI', thumbnail: 'https://img.youtube.com/vi/aYHkUEdk5Lw/mqdefault.jpg', duration: 'Fassarar Algaita' },
+                    { id: 'BjkncLAZu80', title: 'GURNANI', thumbnail: 'https://img.youtube.com/vi/aYHkUEdk5Lw/mqdefault.jpg', duration: 'Fassarar Algaita' },
                     { id: 'eOrNdBpGMv8', title: 'Avengers', thumbnail: 'https://img.youtube.com/vi/mVpqX7l8u1g/mqdefault.jpg', duration: '' },
                     { id: 'mkLCiKXQmLk', title: 'JAMI IN TSARON INDIA', thumbnail: 'https://img.youtube.com/vi/mkLCiKXQmLk/mqdefault.jpg', duration: 'Fassarar Hausa' },
                     { id: 'S8XB_-GZ2hM', title: 'SADAUKI', thumbnail: 'https://img.youtube.com/vi/S8XB_-GZ2hM/mqdefault.jpg', duration: 'Fassarar Sultan' },
@@ -866,3 +952,4 @@ function toggleNav(playlistId) {
    <script type='text/javascript' src='//pl24928085.profitablecpmrate.com/07/ef/82/07ef828dded96ec238230f7ce90b82be.js'></script>>
 </body>
 </html>
+
