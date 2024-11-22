@@ -733,7 +733,7 @@
         const videoContainer = document.getElementById('videoContainer');
 
         function loadVideo(videoId) {
-            currentVideoElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            currentVideoElement.src = `https://www.youtube.com/embed/${videoId}?play=1`;
             if (videoContainer.requestFullscreen) {
                 videoContainer.requestFullscreen();
             } else if (videoContainer.webkitRequestFullscreen) {
