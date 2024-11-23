@@ -408,7 +408,7 @@
     padding: 0;
 }
 
-.novels {
+.market-section {
     display: none;
     position: fixed;
     top: 0;
@@ -421,38 +421,50 @@
     padding: 20px;
 }
 
-.novels.active {
+.market-section.active {
     display: block;
 }
 
-.novels iframe {
+.market-section iframe {
     width: 100%;
-    height: 400px;
-    margin-bottom: 20px;
+    height: 450px;
+    margin-bottom: 10px;
     border: none;
     border-radius: 10px;
 }
 
-.url-buttons {
+.video-wrapper {
+    margin-bottom: 20px;
+}
+
+.buttons {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
     margin-top: 10px;
 }
 
-.url-buttons a {
-    text-decoration: none;
-    background: #b21f1f;
+a.url-btn {
     color: white;
-    padding: 8px 60px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    transition: background 0.3s;
+    text-decoration: none;
+    border: none;
+    padding: 8px 62px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
 }
 
-.url-buttons a:hover {
-    background: #0056b3;
+a.url-btn.chat-btn {
+    background-color: #28a745; /* Green for Chat button */
+}
+
+a.url-btn.buy-btn {
+    background-color: #b21f1f; /* Red for Buy button */
+}
+
+a.url-btn:hover {
+    opacity: 0.8;
 }
 
 .close-btn {
@@ -508,10 +520,10 @@
 }
 
 .chat-btn, .buy-btn {
-    padding: 8px 50px;
+    padding: 2px 130px;
     font-size: 1rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     text-decoration: none;
     color: white; /* Ensure button text color is white */
@@ -571,12 +583,10 @@
         <iframe
             src="https://www.youtube.com/embed/DvV1u0CTVfc" 
             allowfullscreen>
-        </iframe>
-        <h3 style="color: white; text-align: center;">Premium</h3>
+        </iframe>  
         </a>
         <div class="button-container">
-            <a href="https://example.com/chat" class="chat-btn" target="_blank">🗨️ Chat</a>
-            <a href="https://example.com/buy" class="buy-btn" target="_blank">🛒 Buy</a>
+            <a href="https://example.com/chat" class="chat-btn" target="_blank">🗨️ Comments</a>
         </div>
     </div>
 
@@ -586,10 +596,8 @@
             src="https://www.youtube.com/embed/sQ0IHGTp6Zc" 
             allowfullscreen>
         </iframe>
-        <h3 style="color: white; text-align: center;">Premium</h3>
         <div class="button-container">
-            <a href="https://example.com/chat" class="chat-btn" target="_blank">🗨️ Chat</a>
-            <a href="https://example.com/buy" class="buy-btn" target="_blank">🛒 Buy</a>
+            <a href="https://example.com/chat" class="chat-btn" target="_blank">🗨️ Comments</a>
         </div>
     </div>
 
@@ -599,60 +607,58 @@
             src="https://www.youtube.com/embed/gCNeDWCI0vo" 
             allowfullscreen>
         </iframe>
-        <h3 style="color: white; text-align: center;">Premium</h3>
         <div class="button-container">
-            <a href="https://example.com/chat" class="chat-btn" target="_blank">🗨️ Chat</a>
-            <a href="https://example.com/buy" class="buy-btn" target="_blank">🛒 Buy</a>
+            <a href="https://example.com/chat" class="chat-btn" target="_blank">🗨️ Comments</a>   
         </div>
     </div>
 </div>
 
         </a>
-        <a onclick="toggleNovels()">
-    <i class="fas fa-book"></i> 
+        <a onclick="toggleMarket()">
+    <i class="fas fa-store"></i>
 </a>
 
-<div class="novels" id="novels">
-    <button class="close-btn" onclick="toggleNovels(event)">Close</button>
+<div class="market-section" id="marketSection">
+    <button class="close-btn" onclick="toggleMarket(event)">Close</button>
 
     <h2 style="color: white; text-align: center;"></h2>
 
-    <!-- Novel 1 -->
+    <!-- Example: Product 1 -->
     <div class="video-wrapper">
+        <h3 style="color: white;">Price {100 Naira}</h3>
         <iframe 
-            src="https://www.youtube.com/embed/DvV1u0CTVfc" 
+            src="https://www.youtube.com/embed/XuN_yhfpgJE" 
             allowfullscreen>
         </iframe>
-        <h3 style="color: white;">Novel 1: "The Stars Within"</h3>
-        <div class="url-buttons">
-            <a href="https://example.com/chat-novel1" target="_blank">🗨️ Chat</a>
-            <a href="https://example.com/buy-novel1" target="_blank">🛒 Buy</a>
+        <div class="buttons">
+            <a href="https://example-chat.com" target="_blank" class="url-btn chat-btn">Chat</a>
+            <a href="https://example-buy.com" target="_blank" class="url-btn buy-btn">Buy</a>
         </div>
     </div>
 
-    <!-- Novel 2 -->
+    <!-- Example: Product 2 -->
     <div class="video-wrapper">
-       <iframe 
-            src="https://www.youtube.com/embed/DvV1u0CTVfc" 
+        <h3 style="color: white;">Product 2</h3>
+        <iframe 
+            src="https://www.youtube.com/embed/sQ0IHGTp6Zc" 
             allowfullscreen>
         </iframe>
-         <h3 style="color: white;">Novel 2: "Echoes of the Past"</h3>
-        <div class="url-buttons">
-            <a href="https://example.com/chat-novel2" target="_blank">🗨️ Chat</a>
-            <a href="https://example.com/buy-novel2" target="_blank">🛒 Buy</a>
+        <div class="buttons">
+            <a href="https://example-chat.com" target="_blank" class="url-btn chat-btn">Chat</a>
+            <a href="https://example-buy.com" target="_blank" class="url-btn buy-btn">Buy</a>
         </div>
     </div>
 
-    <!-- Novel 3 -->
+    <!-- Example: Product 3 -->
     <div class="video-wrapper">
+        <h3 style="color: white;">Product 3</h3>
         <iframe 
-            src="https://www.youtube.com/embed/DvV1u0CTVfc" 
+            src="https://www.youtube.com/embed/gCNeDWCI0vo" 
             allowfullscreen>
         </iframe>
-        <h3 style="color: white;">Novel 3: "Wilderness Chronicles"</h3>
-        <div class="url-buttons">
-            <a href="https://example.com/chat-novel3" target="_blank">🗨️ Chat</a>
-            <a href="https://example.com/buy-novel3" target="_blank">🛒 Buy</a>
+        <div class="buttons">
+            <a href="https://example-chat.com" target="_blank" class="url-btn chat-btn">Chat</a>
+            <a href="https://example-buy.com" target="_blank" class="url-btn buy-btn">Buy</a>
         </div>
     </div>
 </div>
@@ -670,7 +676,7 @@
     <div class="video-wrapper">
         <h3 style="color: white;"></h3>
         <iframe 
-            src="https://www.youtube.com/embed/DvV1u0CTVfc" 
+            src="https://www.youtube.com/embed/K5uw3Yaj0po" 
             allowfullscreen>
         </iframe>
     </div>
@@ -679,7 +685,7 @@
     <div class="video-wrapper">
         <h3 style="color: white;"></h3>
         <iframe 
-            src="https://www.youtube.com/embed/sQ0IHGTp6Zc" 
+            src="https://www.youtube.com/embed/vGCQPi430o0" 
             allowfullscreen>
         </iframe>
     </div>
@@ -688,7 +694,7 @@
     <div class="video-wrapper">
         <h3 style="color: white;"></h3>
         <iframe 
-            src="https://www.youtube.com/embed/gCNeDWCI0vo" 
+            src="https://www.youtube.com/embed/jwErAY9QjMA" 
             allowfullscreen>
         </iframe>
         <script async="async" data-cfasync="false" src="//pl24944957.profitablecpmrate.com/0c660b71c39d1e626c233711dd16fde3/invoke.js"></script>
@@ -705,33 +711,54 @@
 <div class="music-videos" id="musicVideos">
     <button class="close-btn" onclick="toggleMusicVideos(event)">Close</button>
 
-    <h2 style="color: white; text-align: center;">Music</h2>
+    <h2 style="color: white; text-align: center;"></h2>
 
+    
+
+    <!-- Example: Classical Tunes -->
+    <div class="video-wrapper">
+        <h3 style="color: white;"></h3>
+        <iframe 
+            src="https://www.youtube.com/embed/R6cLGIeGU7M" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    
     <!-- Example: Pop Hits -->
     <div class="video-wrapper">
-        <h3 style="color: white;">Pop Hits</h3>
+        <h3 style="color: white;"></h3>
+        <iframe 
+            src="https://www.youtube.com/embed/ccFgy-aeHxM" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    
+    <!-- Example: Pop Hits -->
+    <div class="video-wrapper">
+        <h3 style="color: white;"></h3>
         <iframe 
             src="https://www.youtube.com/embed/q-HRhjvv0DY" 
             allowfullscreen>
         </iframe>
     </div>
-
-    <!-- Example: Classical Tunes -->
+    
+    <!-- Example: Pop Hits -->
     <div class="video-wrapper">
-        <h3 style="color: white;">Classical Tunes</h3>
+        <h3 style="color: white;"></h3>
         <iframe 
-            src="https://www.youtube.com/embed/R6cLGIeGU7M" 
+            src="https://www.youtube.com/embed/mMVdy2wYf08" 
             allowfullscreen>
         </iframe>
     </div>
 
     <!-- Example: Top Rock Songs -->
     <div class="video-wrapper">
-        <h3 style="color: white;">Top Rock Songs</h3>
+        <h3 style="color: white;"></h3>
         <iframe 
             src="https://www.youtube.com/embed/zTYnsaOk8Sc" 
             allowfullscreen>
         </iframe>
+        
         <script async="async" data-cfasync="false" src="//pl25092522.profitablecpmrate.com/c86c997129d38ec60b38975f48780015/invoke.js"></script>
 <div id="container-c86c997129d38ec60b38975f48780015"></div>
         
@@ -739,43 +766,10 @@
 </div>
 
         </a>
-        <a onclick="toggleLiveVideos()">
-    <i class="fas fa-broadcast-tower"></i></a>
-    </div>
-    
-    <div class="live-videos" id="liveVideos">
-    <button class="close-btn" onclick="toggleLiveVideos()">Close</button>
-
-    <img src="<!-- Example live video streams -->
-    <h2 style="color: white; text-align: center;"></h2>
-
-    <!-- Example: NASA Live -->
-    <div class="video-wrapper">
-        <h3 style="color: white;"></h3>
-        <iframe 
-            src="https://www.youtube.com/embed/js7IrVZuXZY" 
-            allowfullscreen>
-        </iframe>
-    </div>
-
-    <!-- Example: SpaceX Live -->
-    <div class="video-wrapper">
-        <h3 style="color: white;"></h3>
-        <iframe 
-            src="https://www.youtube.com/embed/sQ0IHGTp6Zc" 
-            allowfullscreen>
-        </iframe>
-    </div>
-
-    <!-- Example: Wildlife Live -->
-    <div class="video-wrapper">
-        <h3 style="color: white;"></h3>
-        <iframe 
-            src="https://www.youtube.com/embed/gCNeDWCI0vo" 
-            allowfullscreen>
-        </iframe>
-        <script async="async" data-cfasync="false" src="//pl24944957.profitablecpmrate.com/0c660b71c39d1e626c233711dd16fde3/invoke.js"></script>
-<div id="container-0c660b71c39d1e626c233711dd16fde3"></div>
+        <a href="https://example.com/upload" target="_blank" aria-label="Upload Energy">
+            <i class="fas fa-upload"></i>
+            <div class="control-text"></div>
+        </a>
         
     </div>
 </div>
@@ -924,12 +918,12 @@ function togglePremium(event) {
     premium.classList.toggle('active');
 }
 
-function toggleNovels(event) {
+function toggleMarket(event) {
     // Prevents event propagation if the click is on the close button
     if (event) event.stopPropagation();
-    
-    const novels = document.getElementById('novels');
-    novels.classList.toggle('active');
+
+    const marketSection = document.getElementById('marketSection');
+    marketSection.classList.toggle('active');
 }
 
 function toggleHotVideos(event) {
