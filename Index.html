@@ -131,7 +131,7 @@
         }
 
         .playlist-header {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 700;
             text-transform: uppercase;
             color: #fff;
@@ -143,7 +143,7 @@
         .nav-toggle {
             cursor: pointer;
             color: #fff;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-align: center;
             margin-top: 15px;
             padding: 10px;
@@ -196,14 +196,14 @@
         }
 
         .playlist-item-title {
-            font-size: 1.0rem;
+            font-size: 0.7rem;
             font-weight: 600;
             margin-bottom: 8px;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         .playlist-item-duration {
-            font-size: 0.9rem;
+            font-size: 0.6rem;
             color: #ccc;
         }
 
@@ -276,7 +276,7 @@
     padding: 0;
 }
 
-.live-videos {
+.novels-section {
     display: none;
     position: fixed;
     top: 0;
@@ -289,16 +289,50 @@
     padding: 20px;
 }
 
-.live-videos.active {
+.novels-section.active {
     display: block;
 }
 
-.live-videos iframe {
+.novels-section iframe {
     width: 100%;
-    height: 200px;
-    margin-bottom: 20px;
+    height: 300px;
+    margin-bottom: 10px;
     border: none;
     border-radius: 10px;
+}
+
+.video-wrapper {
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+a.url-btn {
+    color: white;
+    text-decoration: none;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+}
+
+a.url-btn.chat-btn {
+    background-color: #28a745; /* Green for Chat button */
+}
+
+a.url-btn.buy-btn {
+    background-color: #b21f1f; /* Red for Buy button */
+}
+
+a.url-btn:hover {
+    opacity: 0.8;
 }
 
 .close-btn {
@@ -576,7 +610,7 @@ a.url-btn:hover {
 <div class="premium" id="premium">
     <button class="close-btn" onclick="togglePremium(event)">Close</button>
 
-    <h2 style="color: white; text-align: center;">Premium</h2>
+    <h2 style="color: white; text-align: center;"></h2>
 
     <!-- Example: Premium Video 1 -->
     <div class="video-wrapper">
@@ -703,65 +737,55 @@ a.url-btn:hover {
     </div>
 </div>
 
-        </a>
-        <a onclick="toggleMusicVideos()">
-    <i class="fas fa-music"></i> 
 </a>
 
-<div class="music-videos" id="musicVideos">
-    <button class="close-btn" onclick="toggleMusicVideos(event)">Close</button>
+        </a>
+<a onclick="toggleNovels()">
+    <i class="fas fa-book"></i>
+</a>
+
+<div class="novels-section" id="novelsSection">
+    <button class="close-btn" onclick="toggleNovels()">Close</button>
 
     <h2 style="color: white; text-align: center;"></h2>
 
-    
-
-    <!-- Example: Classical Tunes -->
+    <!-- Example: Novel 1 -->
     <div class="video-wrapper">
         <h3 style="color: white;"></h3>
         <iframe 
-            src="https://www.youtube.com/embed/R6cLGIeGU7M" 
+            src="https://www.youtube.com/embed/DvV1u0CTVfc" 
             allowfullscreen>
         </iframe>
-    </div>
-    
-    <!-- Example: Pop Hits -->
-    <div class="video-wrapper">
-        <h3 style="color: white;"></h3>
-        <iframe 
-            src="https://www.youtube.com/embed/ccFgy-aeHxM" 
-            allowfullscreen>
-        </iframe>
-    </div>
-    
-    <!-- Example: Pop Hits -->
-    <div class="video-wrapper">
-        <h3 style="color: white;"></h3>
-        <iframe 
-            src="https://www.youtube.com/embed/q-HRhjvv0DY" 
-            allowfullscreen>
-        </iframe>
-    </div>
-    
-    <!-- Example: Pop Hits -->
-    <div class="video-wrapper">
-        <h3 style="color: white;"></h3>
-        <iframe 
-            src="https://www.youtube.com/embed/mMVdy2wYf08" 
-            allowfullscreen>
-        </iframe>
+        <div class="buttons">
+            <a href="https://example-chat.com" target="_blank" class="url-btn chat-btn">Chat</a>
+            <a href="https://example-buy.com" target="_blank" class="url-btn buy-btn">Buy</a>
+        </div>
     </div>
 
-    <!-- Example: Top Rock Songs -->
+    <!-- Example: Novel 2 -->
     <div class="video-wrapper">
         <h3 style="color: white;"></h3>
         <iframe 
-            src="https://www.youtube.com/embed/zTYnsaOk8Sc" 
+            src="https://www.youtube.com/embed/sQ0IHGTp6Zc" 
             allowfullscreen>
         </iframe>
-        
-        <script async="async" data-cfasync="false" src="//pl25092522.profitablecpmrate.com/c86c997129d38ec60b38975f48780015/invoke.js"></script>
-<div id="container-c86c997129d38ec60b38975f48780015"></div>
-        
+        <div class="buttons">
+            <a href="https://example-chat.com" target="_blank" class="url-btn chat-btn">Chat</a>
+            <a href="https://example-buy.com" target="_blank" class="url-btn buy-btn">Buy</a>
+        </div>
+    </div>
+
+    <!-- Example: Novel 3 -->
+    <div class="video-wrapper">
+        <h3 style="color: white;"></h3>
+        <iframe 
+            src="https://www.youtube.com/embed/gCNeDWCI0vo" 
+            allowfullscreen>
+        </iframe>
+        <div class="buttons">
+            <a href="https://example-chat.com" target="_blank" class="url-btn chat-btn">Chat</a>
+            <a href="https://example-buy.com" target="_blank" class="url-btn buy-btn">Buy</a>
+        </div>                
     </div>
 </div>
 
@@ -942,9 +966,9 @@ function toggleMusicVideos(event) {
     musicVideos.classList.toggle('active');
 }
 
-function toggleLiveVideos() {
-    const liveVideos = document.getElementById('liveVideos');
-    liveVideos.classList.toggle('active');
+function toggleNovels() {
+    const novelsSection = document.getElementById('novelsSection');
+    novelsSection.classList.toggle('active');
 }
 
 function toggleNav(playlistId) {
